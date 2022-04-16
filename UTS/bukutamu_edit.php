@@ -18,8 +18,8 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
-        <title>Supreme Store</title>
-        <link rel="icon" href="img/favicon.ico" />
+        <title>Rakarts Store</title>
+        <link rel="icon" href="img/logo/favicon.ico" />
         <link rel="stylesheet" href="css/style.css" />
     </head>
     <body class="is-loading" oncontextmenu="return false">
@@ -46,7 +46,7 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
                     </ul>
                     <ul class="nav navbar-nav mx-auto">
                         <a href="index.php">
-                            <img src="img/logo.png" alt="Logo" height="35px" />
+                            <img src="img/logo/logo.png" alt="Logo" height="35px" />
                         </a>
                     </ul>
                     <ul class="navbar-nav">
@@ -54,13 +54,13 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         </li> -->
                         <li class="nav-item">
-                            <button class="btn btn-outline-danger mb-1" type="submit" style="margin-right: 8px;"><span class="fa fa-search me-1"></span>Search</button>
+                            <button class="btn btn-outline-warning mb-1" type="submit" style="margin-right: 8px;"><span class="fa fa-search me-1"></span>Search</button>
                         </li>
                         <li class="nav-item">
-                            <button class="btn btn-outline-danger mb-1" type="button" data-bs-toggle="modal" data-bs-target="#modalLogin" style="margin-right: 8px"><span class="fa fa-sign-in me-1"></span>Masuk</button>
+                            <button class="btn btn-outline-warning mb-1" type="button" data-bs-toggle="modal" data-bs-target="#modalLogin" style="margin-right: 8px"><span class="fa fa-sign-in me-1"></span>Masuk</button>
                         </li>
                         <li class="nav-item">
-                        <button class="btn btn-outline-danger mb-1" type="button" data-bs-toggle="modal" data-bs-target="#modalSignUp"><span class="fa fa-user-plus me-1"></span>Daftar</button>
+                        <button class="btn btn-outline-warning mb-1" type="button" data-bs-toggle="modal" data-bs-target="#modalSignUp"><span class="fa fa-user-plus me-1"></span>Daftar</button>
                         </li>
                 </div>
             </div>
@@ -78,13 +78,13 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
         <div class="container mb-5 bukutamu">
         <div class="row p-4">
                 <div class="text-center">
-                    <h1 class="text-danger fw-bold mb-4"><span class="fa fa-book me-1"></span>Buku Tamu</h1>
+                    <h1 class="text-dark fw-bold mb-4"><span class="fa fa-book me-1"></span>Buku Tamu</h1>
                     <hr />
                 </div>
             </div>
             <div class="row">
                 <div class="col-md 5 d-flex justify-content-center">
-                    <img src="img/oreo.png" class="oreo" alt="Contact Us" height="300px" width="300px" />
+                    <img src="img/logo/rakarts.png" class="oreo" alt="Contact Us" height="300px" width="300px" />
                 </div>
                 <div class="col-md-6">
                     <form action="bukutamu_update.php" method="post">
@@ -107,10 +107,10 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
                             <textarea class="form-control" name="pesan" id="exampleFormControlTextarea1" rows="5"><?= $pesan; ?></textarea>
                         </div>
                         <input type="hidden" name="idtamu" value="<?= $idtamu; ?>">
-                        <button type="submit" value="Update" class="btn btn-outline-danger">
+                        <button type="submit" value="Update" class="btn btn-outline-dark">
                             Update Pesan
                         </button>
-                        <a href="bukutamu.php" class="btn btn-outline-danger">Back</a>
+                        <a href="bukutamu.php" class="btn btn-outline-dark">Back</a>
                     </form>
                 </div>
             </div>
@@ -121,6 +121,16 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
         <script>
             $(function () {
                 $("#footer-placeholder").load("components/footer.html");
+            });
+        </script>
+
+        <!-- 3D Animation -->
+        <script type="text/javascript" src="js/vanilla-tilt.min.js"></script>
+        <script type="text/javascript">
+            VanillaTilt.init(document.querySelectorAll(".oreo"), {
+                max: 10,
+                speed: 400,
+                glare: true,
             });
         </script>
 

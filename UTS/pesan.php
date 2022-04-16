@@ -6,8 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
-        <title>Supreme Store</title>
-        <link rel="icon" href="img/favicon.ico" />
+        <title>Rakarts Store</title>
+        <link rel="icon" href="img/logo/favicon.ico" />
         <link rel="stylesheet" href="css/style.css" />
     </head>
     <body class="is-loading" oncontextmenu="return false">
@@ -34,7 +34,7 @@
                     </ul>
                     <ul class="nav navbar-nav mx-auto">
                         <a href="index.php">
-                            <img src="img/logo.png" alt="Logo" height="35px" />
+                            <img src="img/logo/logo.png" alt="Logo" height="35px" />
                         </a>
                     </ul>
                     <ul class="navbar-nav">
@@ -42,13 +42,13 @@
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         </li> -->
                         <li class="nav-item">
-                            <button class="btn btn-outline-danger mb-1" type="submit" style="margin-right: 8px;"><span class="fa fa-search me-1"></span>Search</button>
+                            <button class="btn btn-outline-warning mb-1" type="submit" style="margin-right: 8px;"><span class="fa fa-search me-1"></span>Search</button>
                         </li>
                         <li class="nav-item">
-                            <button class="btn btn-outline-danger mb-1" type="button" data-bs-toggle="modal" data-bs-target="#modalLogin" style="margin-right: 8px"><span class="fa fa-sign-in me-1"></span>Masuk</button>
+                            <button class="btn btn-outline-warning mb-1" type="button" data-bs-toggle="modal" data-bs-target="#modalLogin" style="margin-right: 8px"><span class="fa fa-sign-in me-1"></span>Masuk</button>
                         </li>
                         <li class="nav-item">
-                            <button class="btn btn-outline-danger mb-1" type="button" data-bs-toggle="modal" data-bs-target="#modalSignUp"><span class="fa fa-user-plus me-1"></span>Daftar</button>
+                            <button class="btn btn-outline-warning mb-1" type="button" data-bs-toggle="modal" data-bs-target="#modalSignUp"><span class="fa fa-user-plus me-1"></span>Daftar</button>
                         </li>
                 </div>
             </div>
@@ -64,7 +64,7 @@
 
         <!-- Content -->
         <div class="container my-5">
-            <h1 class="text-danger fw-bold mb-4"><span class="fa fa-shopping-cart me-1"></span>Keranjang Belanja</h1>
+            <h1 class="text-dark fw-bold mb-4"><span class="fa fa-shopping-cart me-1"></span>Keranjang Belanja</h1>
             <hr>
             <div class="row">
             <?php
@@ -83,7 +83,7 @@
                             <div class="col-md-6 d-flex justify-content-center mx-auto">
                             <div class="cart_logo">
                             <div id="gambar">
-                            <img class="cart_img" src="img/'.$row['ft_barang'].'" alt="Gambar Produk" style="border-radius: 10%; height: 512px; width: 512px">
+                            <img class="cart_img" src="img/kaos/'.$row['ft_barang'].'" alt="Gambar Produk" style="border-radius: 10%; height: 512px; width: 512px">
                             </div>
                             </div>
                             </div>
@@ -93,7 +93,7 @@
                             </div>
                             <hr>
                             <div id="harga">
-                            <h2 class="my-4">$ '.$row['harga_spesial'].'</h2>
+                            <h2 class="my-4">'.rupiah($row['harga']).'</h2>
                             </div>
                             <div id="deskripsi">
                             <p class="lead">'.$row['deskripsi'].'</p>
@@ -125,15 +125,17 @@
             ?>
             <!-- Form -->
             <form action="pesan.php">
-                <div class="form-group mb-3 row">
-                    <label class="col-sm-2 col-form-label">Product ID</label>
+                <!-- <div class="form-group mb-3 row">
+                    <label class="col-sm-2 col-form-label">ID Produk</label>
                     <div class="col-sm-10">
-                        <input type="text" id="id_barang" name="id_barang" class="form-control border-dark" value="<?php echo $id_barang ?>">
+                        <h2 class="form-control"></?= $id_barang ?></h2>
+                        <input type="hidden" id="id_barang" name="id_barang" class="form-control border-dark" value="<?php echo $id_barang ?>">
                     </div>
-                </div>
+                </div> -->
                 <div class="form-group mb-3 row">
                     <label class="col-sm-2 col-form-label">Nama</label>
                     <div class="col-sm-10">
+                        <input type="hidden" id="id_barang" name="id_barang" class="form-control border-dark" value="<?php echo $id_barang ?>">
                         <input type="text" id="form_nama" name="nama" class="form-control border-dark" placeholder="Masukkan nama..">
                     </div>
                 </div>
@@ -167,7 +169,7 @@
                         Setuju dengan syarat dan ketentuan
                     </label>
                 </div>
-                <button type="submit" name="submit" value="Submit" class="btn btn-outline-danger" onclick="beliSekarang(); return false">Beli Sekarang</button>
+                <button type="submit" name="submit" value="Submit" class="btn btn-outline-dark" onclick="beliSekarang(); return false">Beli Sekarang</button>
             </form>
             </div>
             </div>

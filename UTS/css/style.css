@@ -104,7 +104,7 @@ body {
 }
 .footer a {
     text-decoration: none;
-    color: #dc3545;
+    color: #f0ad4e;
 }
 .footer a:hover {
     color: #ecf0f1;
@@ -118,7 +118,7 @@ body {
     width: 100%;
     margin-bottom: 10px;
     padding: 6px;
-    background-color: #d9534f;
+    background-color: #f0ad4e;
     color: white;
     font-weight: bold;
     text-align: center;
@@ -134,8 +134,8 @@ body {
     font-size: 18px;
     /* border: none; */
     outline: none;
-    background-color: #ff5252;
-    border-color: #b33939;
+    background-color: #f0ad4e;
+    border-color: #d29239;
     color: white;
     cursor: pointer;
     padding-left: 10px;
