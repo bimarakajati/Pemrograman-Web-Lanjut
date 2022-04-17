@@ -7,7 +7,7 @@ body {
     background-color: #f7f7f7;
 }
 
-/* Add Animation */
+/* ANIMATION */
 @keyframes fade {
     from {
         opacity: 0;
@@ -16,13 +16,16 @@ body {
         opacity: 1;
     }
 }
+#animate, .animate {
+    animation: fade 1.5s;
+}
 
-/* Navbar */
+/* NAVBAR */
 .navbar-nav li a {
     font-size: 17px;
 }
 
-/* Carousel */
+/* CAROUSEL */
 .carousel-control-next {
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0.5) 100%);
 }
@@ -33,20 +36,19 @@ body {
     text-shadow: 5px 5px 10px black;
 }
 
-/* Card */
+/* CARD */
 .card {
     transition: all 0.5s ease;
+    width: 18rem; 
+    border: 2px solid #2d3436; 
+    border-radius: 10px;
 }
 .card:hover {
     transform: scale(1.05);
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 }
 
-/* Product */
-#clothing {
-    animation-name: fade;
-    animation-duration: 1.5s;
-}
+/* PRODUCT */
 .cart_logo {
     transition: all 0.25s ease;
 }
@@ -54,12 +56,22 @@ body {
     transform: scale(1.010);
 }
 .cart_img {
-    /* padding: 10px; */
-    width: 100%;
+    width: 80%;
+    /* width: 512px; */
     height: auto;
+    border-radius: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;  
 }
 
-/* Maps */
+/* About */
+.lead {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+/* MAPS */
 .map-responsive {
     overflow: hidden;
     padding-bottom: 56.25%;
@@ -79,7 +91,7 @@ body {
     list-style-type: circle;
 }
 
-/* Buku Tamu */
+/* ADDRESS BOOK */
 .logo {
     transition: all 0.25s ease;
 }
@@ -94,7 +106,7 @@ body {
     width: 50px;
 }
 
-/* Footer */
+/* FOOTER */
 .footer {
     background-color: #212529;
     color: #ecf0f1;
@@ -113,7 +125,7 @@ body {
     padding: 5px;
 }
 
-/* Cart */
+/* CART */
 .report{
     width: 100%;
     margin-bottom: 10px;
@@ -132,7 +144,6 @@ body {
     right: 30px;
     z-index: 99;
     font-size: 18px;
-    /* border: none; */
     outline: none;
     background-color: #f0ad4e;
     border-color: #d29239;
@@ -150,21 +161,16 @@ body {
 }
 
 /* SCROLLBAR */
-/* width */
 ::-webkit-scrollbar {
     width: 10px;
 }
-/* Track */
 ::-webkit-scrollbar-track {
     background: #292929;
-    /* border-radius: 10px; */
 }
-/* Handle */
 ::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 10px;
 }
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }

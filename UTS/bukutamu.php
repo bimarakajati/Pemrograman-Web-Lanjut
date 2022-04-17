@@ -63,7 +63,7 @@
         </script>
 
         <!-- Content -->
-        <div class="container mb-5 bukutamu">
+        <div class="container mb-5 bukutamu" id="animate">
             <div class="row p-4">
                 <div class="text-center">
                     <h1 class="text-dark fw-bold mb-4"><span class="fa fa-book me-1"></span>Buku Tamu</h1>
@@ -105,7 +105,7 @@
         </div>
 
         <!-- Buku Tamu -->
-        <div class="container my-5">
+        <div class="container my-5" id="animate">
         <hr>
         <div class="table-responsive">
         <table class="table table-bordered table-hover table-striped">

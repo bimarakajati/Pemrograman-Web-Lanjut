@@ -75,9 +75,9 @@ $barang = query("SELECT * FROM barang");
                     <hr>
                 </div>
             </div>
-            <div class="row p-4 text-dark d-flex justify-content-between" id="clothing">
+            <div class="row p-4 text-dark d-flex justify-content-between" id="animate">
                 <?php foreach ($barang as $br) : ?>
-                <div class="card my-5 py-4" style="width: 18rem; border: 2px solid #2d3436; border-radius: 10px;">
+                <div class="card my-5 py-4">
                     <img src="img/kaos/<?= $br["ft_barang"]; ?>" class="card-img-top" alt="<?= $br["nm_barang"]; ?>">
                     <div class="card-body">
                         <h5 class="card-title"><?= $br["nm_barang"]; ?></h5>

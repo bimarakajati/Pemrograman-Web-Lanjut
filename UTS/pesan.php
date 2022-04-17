@@ -63,7 +63,7 @@
         </script>
 
         <!-- Content -->
-        <div class="container my-5">
+        <div class="container my-5" id="animate">
             <h1 class="text-dark fw-bold mb-4"><span class="fa fa-shopping-cart me-1"></span>Keranjang Belanja</h1>
             <hr>
             <div class="row">
@@ -83,7 +83,7 @@
                             <div class="col-md-6 d-flex justify-content-center mx-auto">
                             <div class="cart_logo">
                             <div id="gambar">
-                            <img class="cart_img" src="img/kaos/'.$row['ft_barang'].'" alt="Gambar Produk" style="border-radius: 10%; height: 512px; width: 512px">
+                            <img class="cart_img" src="img/kaos/'.$row['ft_barang'].'" alt="Gambar Produk" class="cart_img">
                             </div>
                             </div>
                             </div>
@@ -129,7 +129,7 @@
                     <label class="col-sm-2 col-form-label">ID Produk</label>
                     <div class="col-sm-10">
                         <h2 class="form-control"></?= $id_barang ?></h2>
-                        <input type="hidden" id="id_barang" name="id_barang" class="form-control border-dark" value="<?php echo $id_barang ?>">
+                        <input type="hidden" id="id_barang" name="id_barang" class="form-control border-dark" value="</?php echo $id_barang ?>">
                     </div>
                 </div> -->
                 <div class="form-group mb-3 row">

@@ -67,7 +67,7 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
         </nav>
 
         <!-- Modal -->
-        <div id="modal-placeholder"></div>
+        <div id="modal-placeholder" style="animation: fadeInRight 0.5s;"></div>
         <script>
             $(function () {
                 $("#modal-placeholder").load("components/modal.html");
@@ -75,7 +75,7 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
         </script>
 
         <!-- Content -->
-        <div class="container mb-5 bukutamu">
+        <div class="container mb-5 bukutamu" id="animate">
         <div class="row p-4">
                 <div class="text-center">
                     <h1 class="text-dark fw-bold mb-4"><span class="fa fa-book me-1"></span>Buku Tamu</h1>
