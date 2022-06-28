@@ -10,7 +10,7 @@
         <link rel="icon" href="img/logo/favicon.ico" />
         <link rel="stylesheet" href="css/style.css" />
     </head>
-    <body class="is-loading" oncontextmenu="return false">
+    <body>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid py-2">
@@ -18,12 +18,15 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav">
+                <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php">Beranda</a>
+                            <a class="nav-link" aria-current="page" href="index.php">Beranda</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="produk.php">Produk</a>
+                            <a class="nav-link active" href="produk.php">Produk</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="transaksi.php">Daftar Transaksi</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="tentang.html">Tentang</a>
@@ -32,24 +35,6 @@
                             <a class="nav-link" href="bukutamu.php">Buku Tamu</a>
                         </li>
                     </ul>
-                    <ul class="nav navbar-nav mx-auto">
-                        <a href="index.php">
-                            <img src="img/logo/logo.png" alt="Logo" height="35px" />
-                        </a>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <!-- <li class="nav-item">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        </li> -->
-                        <li class="nav-item">
-                            <button class="btn btn-outline-warning mb-1" type="submit" style="margin-right: 8px;"><span class="fa fa-search me-1"></span>Search</button>
-                        </li>
-                        <li class="nav-item">
-                            <button class="btn btn-outline-warning mb-1" type="button" data-bs-toggle="modal" data-bs-target="#modalLogin" style="margin-right: 8px"><span class="fa fa-sign-in me-1"></span>Masuk</button>
-                        </li>
-                        <li class="nav-item">
-                            <button class="btn btn-outline-warning mb-1" type="button" data-bs-toggle="modal" data-bs-target="#modalSignUp"><span class="fa fa-user-plus me-1"></span>Daftar</button>
-                        </li>
                 </div>
             </div>
         </nav>
@@ -93,7 +78,7 @@
                             </div>
                             <hr>
                             <div id="harga">
-                            <h2 class="my-4">'.rupiah($row['harga']).'</h2>
+                            <h2 class="my-4">'.rupiah($row['harga']).' | Stok: '.$row['stok'].'</h2>
                             </div>
                             <div id="deskripsi">
                             <p class="lead">'.$row['deskripsi'].'</p>
@@ -106,15 +91,32 @@
                 }
             }
 
+            @session_start();
+            if(isset($_SESSION['success'])){
+                echo '
+                    <div class="report">
+                        Pesanan telah diterima. Terima kasih telah membeli di toko kami.<br>
+                        Lihat pesanan di <a href="transaksi.php">Daftar Transaksi</a>.
+                    </div>';
+                unset($_SESSION['success']);
+            }
+
             if(isset($_GET['submit'])){
+                // nama barang
+                $brg = "select stok from barang where id_barang=".$_GET['id_barang']."";
+                $hasil_brg = mysqli_query($conn, $brg);
+                $hasil_nama = mysqli_fetch_assoc($hasil_brg);
+                $total = $hasil_nama["stok"] - $_GET['jumlah'];
+                // update stok
+                $sql = "update barang set stok = ".$total." where barang.id_barang = ".$_GET['id_barang']."";
+                $conn->query($sql);
+                // insert data
                 $sql = "INSERT INTO pesanan (id_barang, nama, email, hp, ukuran, jumlah, alamat)
                 VALUES ('".$_GET['id_barang']."', '".$_GET['nama']."', '".$_GET['email']."', '".$_GET['hp']."', '".$_GET['ukuran']."', '".$_GET['jumlah']."', '".$_GET['alamat']."')";
-
                 if ($conn->query($sql) === TRUE) {
-                echo '
-                <div class="report">
-                    Order has been accepted. Thank you for buying in our shop.
-                </div>';
+                    @session_start();
+                    $_SESSION['success'] = 1;
+                    header('Location: pesan.php?id_barang='.$_GET["id_barang"].'');
                 } 
                 else {
                 echo "Error: " . $sql . "<br>" . $conn->error;

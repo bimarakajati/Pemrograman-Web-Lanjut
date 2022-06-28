@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Apr 2022 pada 16.06
+-- Waktu pembuatan: 23 Apr 2022 pada 14.25
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 8.0.10
 
@@ -46,8 +46,8 @@ INSERT INTO `barang` (`id_barang`, `nm_barang`, `ft_barang`, `deskripsi`, `harga
 (4, 'Boku No Hero/BNHA - Todoroki Hero', 'todoroki.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000),
 (5, 'Kimetsu no Yaiba - Cool Giyu', 'giyu.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000),
 (6, 'Attack on Titan - Human are Virus', 'titan.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000),
-(8, 'Kimetsu no Yaiba - Rengoku Tasty', 'rengoku.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000),
-(9, 'Jujutsu Kaisen - Megumi Shiki', 'megumi.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000);
+(7, 'Kimetsu no Yaiba - Rengoku Tasty', 'rengoku.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000),
+(8, 'Jujutsu Kaisen - Megumi Shiki', 'megumi.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000);
 
 -- --------------------------------------------------------
 
@@ -57,19 +57,14 @@ INSERT INTO `barang` (`id_barang`, `nm_barang`, `ft_barang`, `deskripsi`, `harga
 
 CREATE TABLE `pesanan` (
   `id_pesan` int(11) NOT NULL,
-  `id_barang` int(11) NOT NULL,
+  `id_barang` int(10) NOT NULL,
   `nama` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
   `hp` varchar(15) NOT NULL,
-  `jumlah` int(11) NOT NULL,
+  `ukuran` varchar(10) NOT NULL,
+  `jumlah` int(10) NOT NULL,
   `alamat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `pesanan`
---
-
-INSERT INTO `pesanan` (`id_pesan`, `id_barang`, `nama`, `hp`, `jumlah`, `alamat`) VALUES
-(1, 9, 'Bima Rakajati', '08123456789', 3, 'Semarang');
 
 -- --------------------------------------------------------
 
@@ -89,7 +84,7 @@ CREATE TABLE `tamu` (
 --
 
 INSERT INTO `tamu` (`idtamu`, `nama`, `email`, `pesan`) VALUES
-(1, 'Bima', 'bimandugal@gmail.com', 'Bismillah'),
+(1, 'Bima', '111202013088@mhs.dinus.ac.id', 'Bismillah'),
 (2, 'Raka', 'raka@gmail.com', 'Lolos'),
 (3, 'Jati', 'jati@gmail.com', 'UTS');
 
@@ -123,13 +118,13 @@ ALTER TABLE `tamu`
 -- AUTO_INCREMENT untuk tabel `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_barang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id_pesan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pesan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `tamu`
