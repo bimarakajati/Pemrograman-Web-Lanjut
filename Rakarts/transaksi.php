@@ -45,7 +45,7 @@
                         require 'koneksi.php';
                         if(!empty($_SESSION["id"])){
                             $id = $_SESSION["id"];
-                            $result = mysqli_query($conn, "SELECT * FROM tb_user WHERE id = $id");
+                            $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE id = $id");
                             $row = mysqli_fetch_assoc($result);
                             echo "
                             <ul class='navbar-nav'>
@@ -84,7 +84,7 @@
             if(isset($_POST["submit_login"])){
                 $usernameemail = $_POST["usernameemail"];
                 $password = $_POST["password"];
-                $result = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$usernameemail' OR email = '$usernameemail'");
+                $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE username = '$usernameemail' OR email = '$usernameemail'");
                 $row = mysqli_fetch_assoc($result);
                 if(mysqli_num_rows($result) > 0){
                     if($password == $row['password']){
@@ -116,14 +116,14 @@
             $email = $_POST["email"];
             $password = $_POST["password"];
             $confirmpassword = $_POST["confirmpassword"];
-            $duplicate = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$username' OR email = '$email'");
+            $duplicate = mysqli_query($conn, "SELECT * FROM pengguna WHERE username = '$username' OR email = '$email'");
             if(mysqli_num_rows($duplicate) > 0){
                 echo
                 "<script> alert('Username atau Email sudah terpakai'); </script>";
             }
             else{
                 if($password == $confirmpassword){
-                    $query = "INSERT INTO tb_user VALUES('','$name','$username','$email','$password')";
+                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password')";
                     mysqli_query($conn, $query);
                     echo
                     "<script> alert('Registrasi Sukses'); </script>";
@@ -271,7 +271,7 @@
         <!-- <hr> -->
         <div class="table-responsive">
         <?php
-            if(!empty($_SESSION["id"])){
+            if(!empty($_SESSION["id"]) && $row["username"] == "admin"){
                 echo "
                 <table class='table table-bordered table-hover table-striped'>
                     <thead>
@@ -301,18 +301,18 @@
                 // harga barang
                 $harga_brg = mysqli_fetch_assoc(mysqli_query($conn, "select harga from barang where id_barang=".$ps['id_barang'].""));
                 echo "
-                            <tr>
-                                <th scope='row' style='text-align:center'>".$urut++."</th>
-                                <td style='text-align:center'>".$ps['id_barang']."</td>
-                                <td>".$nama_brg["nm_barang"]."</td>
-                                <td>".$ps['nama']."</td>
-                                <td>".$ps['email']."</td>
-                                <td>".$ps['hp']."</td>
-                                <td>".$ps['alamat']."</td>
-                                <td>".$ps['ukuran']."</td>
-                                <td style='text-align:center'>".$ps['jumlah']."</td>
-                                <td>".rupiah($ps['jumlah'] * $harga_brg["harga"])."</td>
-                            </tr>
+                    <tr>
+                        <th scope='row' style='text-align:center'>".$urut++."</th>
+                        <td style='text-align:center'>".$ps['id_barang']."</td>
+                        <td>".$nama_brg["nm_barang"]."</td>
+                        <td>".$ps['nama']."</td>
+                        <td>".$ps['email']."</td>
+                        <td>".$ps['hp']."</td>
+                        <td>".$ps['alamat']."</td>
+                        <td>".$ps['ukuran']."</td>
+                        <td style='text-align:center'>".$ps['jumlah']."</td>
+                        <td>".rupiah($ps['jumlah'] * $harga_brg["harga"])."</td>
+                    </tr>
                 ";
                 endforeach;
                 echo "
@@ -320,7 +320,12 @@
                 </table>
                 ";
             } else {
-                echo "<center>Anda harus login terlebih dahulu untuk mengakses halaman ini</center>";
+                echo "
+                <center>
+                    Anda harus masuk sebagai admin terlebih dahulu untuk mengakses halaman ini<br>
+                    Username: admin, Password: admin
+                </center>
+                ";
             }
         ?>
         

@@ -57,7 +57,7 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
                         session_start();
                         if(!empty($_SESSION["id"])){
                             $id = $_SESSION["id"];
-                            $result = mysqli_query($conn, "SELECT * FROM tb_user WHERE id = $id");
+                            $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE id = $id");
                             $row = mysqli_fetch_assoc($result);
                             echo "
                             <ul class='navbar-nav'>
@@ -89,7 +89,7 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
             if(isset($_POST["submit_login"])){
                 $usernameemail = $_POST["usernameemail"];
                 $password = $_POST["password"];
-                $result = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$usernameemail' OR email = '$usernameemail'");
+                $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE username = '$usernameemail' OR email = '$usernameemail'");
                 $row = mysqli_fetch_assoc($result);
                 if(mysqli_num_rows($result) > 0){
                     if($password == $row['password']){
@@ -121,14 +121,14 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
             $email = $_POST["email"];
             $password = $_POST["password"];
             $confirmpassword = $_POST["confirmpassword"];
-            $duplicate = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$username' OR email = '$email'");
+            $duplicate = mysqli_query($conn, "SELECT * FROM pengguna WHERE username = '$username' OR email = '$email'");
             if(mysqli_num_rows($duplicate) > 0){
                 echo
                 "<script> alert('Username atau Email sudah terpakai'); </script>";
             }
             else{
                 if($password == $confirmpassword){
-                    $query = "INSERT INTO tb_user VALUES('','$name','$username','$email','$password')";
+                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password')";
                     mysqli_query($conn, $query);
                     echo
                     "<script> alert('Registrasi Sukses'); </script>";

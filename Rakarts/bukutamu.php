@@ -46,7 +46,7 @@
                         require 'koneksi.php';
                         if(!empty($_SESSION["id"])){
                             $id = $_SESSION["id"];
-                            $result = mysqli_query($conn, "SELECT * FROM tb_user WHERE id = $id");
+                            $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE id = $id");
                             $row = mysqli_fetch_assoc($result);
                             echo "
                             <ul class='navbar-nav'>
@@ -84,7 +84,7 @@
             if(isset($_POST["submit_login"])){
                 $usernameemail = $_POST["usernameemail"];
                 $password = $_POST["password"];
-                $result = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$usernameemail' OR email = '$usernameemail'");
+                $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE username = '$usernameemail' OR email = '$usernameemail'");
                 $row = mysqli_fetch_assoc($result);
                 if(mysqli_num_rows($result) > 0){
                     if($password == $row['password']){
@@ -116,14 +116,14 @@
             $email = $_POST["email"];
             $password = $_POST["password"];
             $confirmpassword = $_POST["confirmpassword"];
-            $duplicate = mysqli_query($conn, "SELECT * FROM tb_user WHERE username = '$username' OR email = '$email'");
+            $duplicate = mysqli_query($conn, "SELECT * FROM pengguna WHERE username = '$username' OR email = '$email'");
             if(mysqli_num_rows($duplicate) > 0){
                 echo
                 "<script> alert('Username atau Email sudah terpakai'); </script>";
             }
             else{
                 if($password == $confirmpassword){
-                    $query = "INSERT INTO tb_user VALUES('','$name','$username','$email','$password')";
+                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password')";
                     mysqli_query($conn, $query);
                     echo
                     "<script> alert('Registrasi Sukses'); </script>";
@@ -287,18 +287,43 @@
                 </div>
                 <div class="col-md-6">
                     <form action="" method="post">
-                        <div class="mb-3">
-                            <label for="exampleForm" class="form-label">
-                                Nama
-                            </label>
-                            <input type="text" name="nama" class="form-control" id="exampleForm" placeholder="Bima Rakajati" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">
-                                Email
-                            </label>
-                            <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" />
-                        </div>
+                        <?php
+                        if(!empty($_SESSION["id"])){
+                            $id = $_SESSION["id"];
+                            $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE id = $id");
+                            $row = mysqli_fetch_assoc($result);
+                            echo "
+                                <div class='mb-3'>
+                                    <label for='exampleForm' class='form-label'>
+                                        Nama
+                                    </label>
+                                    <input type='text' name='nama' class='form-control' id='exampleForm' value='".$row["name"]."' readonly />
+                                </div>
+                                <div class='mb-3'>
+                                    <label for='exampleFormControlInput1' class='form-label'>
+                                        Email
+                                    </label>
+                                    <input type='email' name='email' class='form-control' id='exampleFormControlInput1' value='".$row["email"]."' readonly />
+                                </div>
+                            ";
+                        }
+                        else{
+                            echo "
+                                <div class='mb-3'>
+                                    <label for='exampleForm' class='form-label'>
+                                        Nama
+                                    </label>
+                                    <input type='text' name='nama' class='form-control' id='exampleForm' placeholder='Bima Rakajati' />
+                                </div>
+                                <div class='mb-3'>
+                                    <label for='exampleFormControlInput1' class='form-label'>
+                                        Email
+                                    </label>
+                                    <input type='email' name='email' class='form-control' id='exampleFormControlInput1' placeholder='name@example.com' />
+                                </div>
+                            ";
+                        }
+                        ?>
                         <div class="mb-3">
                             <label for="exampleFormControlTextarea1" class="form-label">
                                 Pesan
@@ -324,7 +349,7 @@
                         $tamu = query("SELECT * FROM tamu WHERE nama LIKE '%". $_GET['cari'] ."%'");
                     }
                     $urut = 1;
-                    if(!empty($_SESSION["id"])){
+                    if(!empty($_SESSION["id"]) && $row["username"] == "admin"){
                         echo "
                         <thead>
                             <tr>
@@ -357,7 +382,6 @@
                         <tr>
                             <th scope='col'>No</th>
                             <th scope='col'>Nama</th>
-                            <th scope='col'>Email</th>
                             <th scope='col'>Pesan</th>
                         </tr>
                     </thead>
@@ -368,7 +392,6 @@
                     <tr>
                         <th scope='row'>".$urut++."</th>
                         <td>".$tm['nama']."</td>
-                        <td>".$tm['email']."</td>
                         <td>".$tm['pesan']."</td>
                     </tr>
                     ";
