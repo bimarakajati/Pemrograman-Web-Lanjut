@@ -39,14 +39,6 @@
             </div>
         </nav>
 
-        <!-- Modal -->
-        <div id="modal-placeholder"></div>
-        <script>
-            $(function () {
-                $("#modal-placeholder").load("components/modal.html");
-            });
-        </script>
-
         <!-- Content -->
         <div class="container mb-5 bukutamu" id="animate">
             <div class="row p-4">
@@ -105,24 +97,22 @@
             </thead>
             <tbody>
                 <?php
-                include "koneksi.php";
-                $sql = "select * from tamu";
-                $hasil = mysqli_query($conn, $sql);
-                $urut   = 1;
-                while ($r = mysqli_fetch_assoc($hasil)) {
-                    echo "                
+                    include "koneksi.php";
+                    $tamu = query("SELECT * FROM tamu");
+                    $urut = 1;
+                    foreach ($tamu as $tm) : 
+                ?>        
                     <tr>
-                        <th scope='row'>" . $urut++ . "</th>
-                        <td>" . $r['nama'] . "</td>
-                        <td>" . $r['email'] . "</td>
-                        <td>" . $r['pesan'] . "</td>
+                        <th scope='row'><?= $urut++; ?></th>
+                        <td><?= $tm['nama']; ?></td>
+                        <td><?= $tm['email']; ?></td>
+                        <td><?= $tm['pesan']; ?></td>
                         <td>
-                        <a href='bukutamu_edit.php?idtamu=" . $r['idtamu'] . "' class='btn btn-warning mb-1 tombol'>Edit</a>
-                        <a href='bukutamu_del.php?idtamu=" . $r['idtamu'] . "' class='btn btn-danger mb-1 tombol' onclick=\"return confirm('Apakah anda yakin ingin menghapus data ini??')\">Del</a>
+                        <a href='bukutamu_edit.php?idtamu=<?= $tm['idtamu']; ?>' class='btn btn-warning mb-1 tombol'>Edit</a>
+                        <a href='bukutamu_del.php?idtamu=<?= $tm['idtamu']; ?>' class='btn btn-danger mb-1 tombol' onclick=\"return confirm('Apakah anda yakin ingin menghapus data ini??')\">Del</a>
                         </td>
-                    </tr>";
-                }
-                ?>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
         </div>

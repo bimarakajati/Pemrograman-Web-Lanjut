@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Jun 2022 pada 02.33
+-- Waktu pembuatan: 28 Jun 2022 pada 02.24
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 8.0.10
 
@@ -41,10 +41,10 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id_barang`, `nm_barang`, `ft_barang`, `deskripsi`, `harga`, `stok`) VALUES
-(1, 'Attack on Titan - Health Protocol Levi', 'levi.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000, 986),
+(1, 'Attack on Titan - Health Protocol Levi', 'levi.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000, 990),
 (2, 'NEKOSHIBA - Shiba Daijoubu Inu', 'neko.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000, 995),
-(3, 'HxH/Hunter X Hunter - Killua Drink', 'killua.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 145000, 989),
-(4, 'Boku No Hero/BNHA - Todoroki Hero', 'todoroki.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000, 986),
+(3, 'HxH/Hunter X Hunter - Killua Drink', 'killua.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 145000, 994),
+(4, 'Boku No Hero/BNHA - Todoroki Hero', 'todoroki.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000, 990),
 (5, 'Kimetsu no Yaiba - Cool Giyu', 'giyu.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000, 997),
 (6, 'Attack on Titan - Human are Virus', 'titan.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000, 994),
 (7, 'Kimetsu no Yaiba - Rengoku Tasty', 'rengoku.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000, 956),
@@ -82,15 +82,13 @@ INSERT INTO `pesanan` (`id_pesan`, `id_barang`, `nama`, `email`, `hp`, `ukuran`,
 (10, 1, 'Levi', 'bimandugal@gmail.com', '12345', 'S', 4, 'Entah'),
 (11, 4, 'Kumalala', 'bimarakajati@outlook.com', '08123456789', 'XL', 4, 'Savesta'),
 (12, 7, 'Big Boss', '111202013088@mhs.dinus.ac.id', '08123456789', 'S', 4, 'Jauh Disana'),
+(21, 7, 'Big Boss', '111202013088@mhs.dinus.ac.id', '08123456789', 'S', 4, 'Jauh Disana'),
 (22, 6, 'Beat', 'bima@gmail.com', '123', 'S', 5, 'Coba'),
 (23, 8, 'Fushiguro', 'bimandugal@gmail.com', '12345', 'M', 4, 'Greed Island'),
 (24, 2, 'Affh Iyh', '111202013088@mhs.dinus.ac.id', '08123456789', 'S', 4, 'Semarang'),
 (25, 1, 'Dicoba ygy', 'coba@gmail.com', '08123456789', 'S', 4, 'Coba'),
 (26, 3, 'Terus Dicoba', 'bima@gmail.com', '12345', 'S', 1, 'Entah'),
-(27, 7, 'Capek ygy', 'bimandugal@gmail.com', '08123456789', 'S', 3, 'Entah'),
-(28, 1, 'Zoro', 'bima@gmail.com', '123', 'S', 4, 'Semarang'),
-(29, 3, 'Sanji', 'raka@gmail.com', '1234567890', 'M', 5, 'Jauh Disana'),
-(30, 4, 'Luffy', 'raka@gmail.com', '1234567890', 'XL', 4, 'Greed Island');
+(27, 7, 'Capek ygy', 'bimandugal@gmail.com', '08123456789', 'S', 3, 'Entah');
 
 -- --------------------------------------------------------
 
@@ -110,31 +108,9 @@ CREATE TABLE `tamu` (
 --
 
 INSERT INTO `tamu` (`idtamu`, `nama`, `email`, `pesan`) VALUES
-(1, 'Bima', 'bima@gmail.com', 'Bismillah'),
+(1, 'Bima', '111202013088@mhs.dinus.ac.id', 'Bismillah'),
 (2, 'Raka', 'raka@gmail.com', 'Lancar'),
 (3, 'Jati', 'jati@gmail.com', 'UAS');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `tb_user`
---
-
-CREATE TABLE `tb_user` (
-  `id` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `username` varchar(25) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(75) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `tb_user`
---
-
-INSERT INTO `tb_user` (`id`, `name`, `username`, `email`, `password`) VALUES
-(4, 'Bima', 'bimarakajati', 'bimandugal@gmail.com', 'bima'),
-(5, 'User', 'user', 'user@gmail.com', 'user');
 
 --
 -- Indexes for dumped tables
@@ -159,12 +135,6 @@ ALTER TABLE `tamu`
   ADD PRIMARY KEY (`idtamu`);
 
 --
--- Indeks untuk tabel `tb_user`
---
-ALTER TABLE `tb_user`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
@@ -178,19 +148,13 @@ ALTER TABLE `barang`
 -- AUTO_INCREMENT untuk tabel `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id_pesan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_pesan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT untuk tabel `tamu`
 --
 ALTER TABLE `tamu`
   MODIFY `idtamu` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT untuk tabel `tb_user`
---
-ALTER TABLE `tb_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

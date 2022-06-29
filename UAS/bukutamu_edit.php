@@ -51,14 +51,6 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
             </div>
         </nav>
 
-        <!-- Modal -->
-        <div id="modal-placeholder" style="animation: fadeInRight 0.5s;"></div>
-        <script>
-            $(function () {
-                $("#modal-placeholder").load("components/modal.html");
-            });
-        </script>
-
         <!-- Content -->
         <div class="container mb-5 bukutamu" id="animate">
         <div class="row p-4">

@@ -39,17 +39,9 @@
             </div>
         </nav>
 
-        <!-- Modal -->
-        <div id="modal-placeholder"></div>
-        <script>
-            $(function () {
-                $("#modal-placeholder").load("components/modal.html");
-            });
-        </script>
-
         <!-- Content -->
         <div class="container mb-5 bukutamu" id="animate">
-            <div class="row p-4">
+            <div class="row my-4">
                 <div class="text-center">
                     <h1 class="text-dark fw-bold mb-4"><span class="fa fa-book me-1"></span>Daftar Transaksi</h1>
                     <hr>
@@ -57,7 +49,7 @@
             </div>
         </div>
 
-        <!-- Buku Tamu -->
+        <!-- Daftar Transaksi -->
         <div class="container my-5" id="animate">
         <!-- <hr> -->
         <div class="table-responsive">
@@ -78,34 +70,28 @@
             </thead>
             <tbody>
                 <?php
-                include "koneksi.php";
-                $sql = "select * from pesanan";
-                $hasil = mysqli_query($conn, $sql);
-                $urut   = 1;
-                while ($r = mysqli_fetch_assoc($hasil)) {
+                    include "koneksi.php";
+                    $pesanan = query("SELECT * FROM pesanan");
+                    $urut = 1;
+                    foreach ($pesanan as $ps) : 
                     // nama barang
-                    $brg = "select nm_barang from barang where id_barang=".$r['id_barang']."";
-                    $hasil_brg = mysqli_query($conn, $brg);
-                    $hasil_nama = mysqli_fetch_assoc($hasil_brg);
+                    $nama_brg = mysqli_fetch_assoc(mysqli_query($conn, "select nm_barang from barang where id_barang=".$ps['id_barang'].""));
                     // harga barang
-                    $hrg = "select harga from barang where id_barang=".$r['id_barang']."";
-                    $hasil_hrg = mysqli_query($conn, $hrg);
-                    $hasil_harga = mysqli_fetch_assoc($hasil_hrg);
-                    echo "                
-                    <tr>
-                        <th scope='row' style='text-align:center'>" . $urut++ . "</th>
-                        <td style='text-align:center'>" . $r['id_barang'] . "</td>
-                        <td>" . $hasil_nama["nm_barang"] . "</td>
-                        <td>" . $r['nama'] . "</td>
-                        <td>" . $r['email'] . "</td>
-                        <td>" . $r['hp'] . "</td>
-                        <td>" . $r['alamat'] . "</td>
-                        <td>" . $r['ukuran'] . "</td>
-                        <td style='text-align:center'>" . $r['jumlah'] . "</td>
-                        <td>" . rupiah($r['jumlah'] * $hasil_harga["harga"]) . "</td>
-                    </tr>";
-                }
+                    $harga_brg = mysqli_fetch_assoc(mysqli_query($conn, "select harga from barang where id_barang=".$ps['id_barang'].""));
                 ?>
+                    <tr>
+                        <th scope='row' style='text-align:center'><?= $urut++; ?></th>
+                        <td style='text-align:center'><?= $ps['id_barang']; ?></td>
+                        <td><?= $nama_brg["nm_barang"]; ?></td>
+                        <td><?= $ps['nama']; ?></td>
+                        <td><?= $ps['email']; ?></td>
+                        <td><?= $ps['hp']; ?></td>
+                        <td><?= $ps['alamat']; ?></td>
+                        <td><?= $ps['ukuran']; ?></td>
+                        <td style='text-align:center'><?= $ps['jumlah']; ?></td>
+                        <td><?= rupiah($ps['jumlah'] * $harga_brg["harga"]); ?></td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
         </div>
@@ -117,16 +103,6 @@
         <script>
             $(function () {
                 $("#footer-placeholder").load("components/footer.html");
-            });
-        </script>
-
-        <!-- 3D Animation -->
-        <script type="text/javascript" src="js/vanilla-tilt.min.js"></script>
-        <script type="text/javascript">
-            VanillaTilt.init(document.querySelectorAll(".oreo"), {
-                max: 10,
-                speed: 400,
-                glare: true,
             });
         </script>
 

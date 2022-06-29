@@ -39,59 +39,44 @@
             </div>
         </nav>
 
-        <!-- Modal -->
-        <div id="modal-placeholder"></div>
-        <script>
-            $(function () {
-                $("#modal-placeholder").load("components/modal.html");
-            });
-        </script>
-
         <!-- Content -->
         <div class="container my-5" id="animate">
             <h1 class="text-dark fw-bold mb-4"><span class="fa fa-shopping-cart me-1"></span>Keranjang Belanja</h1>
             <hr>
             <div class="row">
             <?php
-            include "koneksi.php";
-            $id_barang = "";
-
-            if(isset($_GET['id_barang'])){
-                $id_barang = $_GET['id_barang'];
-                $sql = "SELECT * FROM barang WHERE id_barang=".$_GET['id_barang'];
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-                    // output data of each row
-                    while($row = $result->fetch_assoc()) {
-                        echo '
-                            <div class="col-md-6 d-flex justify-content-center mx-auto">
-                            <div class="cart_logo">
-                            <div id="gambar">
-                            <img class="cart_img" src="img/kaos/'.$row['ft_barang'].'" alt="Gambar Produk" class="cart_img">
-                            </div>
-                            </div>
-                            </div>
-                            <div class="col-md-6 d-flex flex-column justify-content-center">
-                            <div id="nama">
-                            <h1 class="display-5 fw-bold">'.$row['nm_barang'].'</h1>
-                            </div>
-                            <hr>
-                            <div id="harga">
-                            <h2 class="my-4">'.rupiah($row['harga']).' | Stok: '.$row['stok'].'</h2>
-                            </div>
-                            <div id="deskripsi">
-                            <p class="lead">'.$row['deskripsi'].'</p>
-                            </div>
-                        ';
-                    }
-                } 
-                else {
-                    echo "0 results";
+                include "koneksi.php";
+                $id_barang = "";
+                // ngambil id barang
+                if(isset($_GET['id_barang'])){
+                    $id_barang = $_GET['id_barang'];
+                    $barang = query("SELECT * FROM barang WHERE id_barang=".$_GET['id_barang']."");
                 }
-            }
-
+                foreach ($barang as $br) : 
+            ?>
+                <div class="col-md-6 d-flex justify-content-center mx-auto">
+                    <div class="cart_logo">
+                        <div id="gambar">
+                            <img class="cart_img" src="img/kaos/<?= $br["ft_barang"]; ?>" alt="<?= $br["nm_barang"]; ?>" class="cart_img">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex flex-column justify-content-center">
+                <div id="nama">
+                    <h1 class="display-5 fw-bold"><?= $br["nm_barang"]; ?></h1>
+                </div>
+                <hr>
+                <div id="harga">
+                    <h2 class="my-4"><?= rupiah($br["harga"]); ?> | Stok: <?= $br["stok"]; ?></h2>
+                </div>
+                <div id="deskripsi">
+                    <p class="lead"><?= $br["deskripsi"]; ?></p>
+                </div>
+            <?php endforeach; ?>
+            
+            <?php
             @session_start();
+            // nampilin pesan diterima
             if(isset($_SESSION['success'])){
                 echo '
                     <div class="report">
@@ -100,7 +85,6 @@
                     </div>';
                 unset($_SESSION['success']);
             }
-
             if(isset($_GET['submit'])){
                 // nama barang
                 $brg = "select stok from barang where id_barang=".$_GET['id_barang']."";
@@ -114,7 +98,6 @@
                 $sql = "INSERT INTO pesanan (id_barang, nama, email, hp, ukuran, jumlah, alamat)
                 VALUES ('".$_GET['id_barang']."', '".$_GET['nama']."', '".$_GET['email']."', '".$_GET['hp']."', '".$_GET['ukuran']."', '".$_GET['jumlah']."', '".$_GET['alamat']."')";
                 if ($conn->query($sql) === TRUE) {
-                    @session_start();
                     $_SESSION['success'] = 1;
                     header('Location: pesan.php?id_barang='.$_GET["id_barang"].'');
                 } 
@@ -123,7 +106,7 @@
                 }
 
                 $conn->close();
-            } 
+            }
             ?>
             <!-- Form -->
             <form action="pesan.php" method="get">

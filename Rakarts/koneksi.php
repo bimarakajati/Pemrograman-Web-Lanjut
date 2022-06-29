@@ -1,4 +1,5 @@
 <?php
+// session_start();
 // $host = "sql212.epizy.com";
 // $user = "epiz_20700601";
 // $pass = "Yi6FOEwIMh";

@@ -1,8 +1,3 @@
-<?php
-require "koneksi.php";
-$barang = query("SELECT * FROM barang");
-?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -44,14 +39,6 @@ $barang = query("SELECT * FROM barang");
             </div>
         </nav>
 
-        <!-- Modal -->
-        <div id="modal-placeholder"></div>
-        <script>
-            $(function () {
-                $("#modal-placeholder").load("components/modal.html");
-            });
-        </script>
-
         <!-- Carousel -->
         <div id="carousel-placeholder" class="animate"></div>
         <script>
@@ -69,7 +56,11 @@ $barang = query("SELECT * FROM barang");
                 </div>
             </div>
             <div class="row p-4 text-dark d-flex justify-content-between" id="animate">
-                <?php foreach ($barang as $br) : ?>
+                <?php
+                require "koneksi.php";
+                $barang = query("SELECT * FROM barang");
+                foreach ($barang as $br) : 
+                ?>
                 <div class="card my-5 py-4">
                     <img src="img/kaos/<?= $br["ft_barang"]; ?>" class="card-img-top" alt="<?= $br["nm_barang"]; ?>">
                     <div class="card-body">
