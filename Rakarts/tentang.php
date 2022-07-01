@@ -35,9 +35,9 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav mx-auto">
-                        <a href="index.php">
+                        <!-- <a href="index.php">
                             <img src="img/logo/logo.png" alt="Logo" height="35px" />
-                        </a>
+                        </a> -->
                     </ul>
                     
                     <?php
@@ -229,7 +229,7 @@
 
         <!-- Content -->
         <div class="container my-5" id="animate">
-            <h1 class="text-dark fw-bold mb-4">Tentang Kami</h1>
+            <h1 class="text-dark fw-bold mb-4"><span class="fa fa-heart me-1"></span>Tentang Kami</h1>
             <div class="row">
                 <div class="col-md-6">
                     <p class="lead mb-4"> Rakarts Store adalah retail berpengalaman yang dibuat untuk para penggemar anime dan budaya anime. Kami membawa 100% pakaian EKSKLUSIF berlisensi resmi, aksesori, dan lainnya dari nama-nama besar di anime seperti Attack on Titan, Hunter X Hunter, Kimetsu no Yaiba dan banyak lagi. <br />

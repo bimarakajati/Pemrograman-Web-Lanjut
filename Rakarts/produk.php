@@ -36,9 +36,9 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav mx-auto">
-                        <a href="index.php">
+                        <!-- <a href="index.php">
                             <img src="img/logo/logo.png" alt="Logo" height="35px" />
-                        </a>
+                        </a> -->
                     </ul>
                     
                     <?php
@@ -265,7 +265,7 @@
                     <hr>
                 </div>
             </div>
-            <div class="row p-4 text-dark d-flex justify-content-between" id="animate">
+            <div class="row mb-4 text-dark d-flex justify-content-around" id="animate">
                 <?php
                 $barang = query("SELECT * FROM barang");
                 if(isset($_GET['cari'])){

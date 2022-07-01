@@ -48,9 +48,9 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
                         </li>
                     </ul>
                     <ul class="nav navbar-nav mx-auto">
-                        <a href="index.php">
+                        <!-- <a href="index.php">
                             <img src="img/logo/logo.png" alt="Logo" height="35px" />
-                        </a>
+                        </a> -->
                     </ul>
                     
                     <?php

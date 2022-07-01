@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: sql212.epizy.com
--- Waktu pembuatan: 29 Jun 2022 pada 20.03
--- Versi server: 10.3.27-MariaDB
--- Versi PHP: 7.2.22
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 01 Jul 2022 pada 02.30
+-- Versi server: 10.4.21-MariaDB
+-- Versi PHP: 8.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `epiz_20700601_dbtamu`
+-- Database: `rakarts`
 --
 
 -- --------------------------------------------------------
@@ -103,17 +102,17 @@ INSERT INTO `pesanan` (`id_pesan`, `id_barang`, `nama`, `email`, `hp`, `ukuran`,
 (2, 8, 'Bima', 'bima@gmail.com', '123', 'L', 5, 'Semarang'),
 (4, 6, 'Raka', 'raka@gmail.com', '123', 'S', 1, 'Semarang'),
 (7, 4, 'Jati', 'b.imandugal@gmail.com', '12345', 'S', 5, 'Coba'),
-(8, 3, 'Killua', 'bima@gmail.com', '123', 'M', 4, 'Greed Island'),
-(9, 5, 'Giyuu', 'bimarakajati@outlook.com', '08123456789', 'M', 2, 'Entah'),
-(10, 1, 'Levi', 'bimandugal@gmail.com', '12345', 'S', 4, 'Entah'),
-(23, 8, 'Fushiguro', 'bimandugal@gmail.com', '12345', 'M', 4, 'Greed Island'),
+(8, 3, 'Killua', 'bima@gmail.com', '123', 'M', 4, 'Kukuroo'),
+(9, 5, 'Giyuu', 'bimarakajati@outlook.com', '08123456789', 'M', 2, 'Demon Slayer'),
+(10, 1, 'Levi', 'bimandugal@gmail.com', '12345', 'S', 4, 'Survey Corps'),
+(23, 8, 'Fushiguro', 'bimandugal@gmail.com', '12345', 'M', 4, 'Tokyo'),
 (24, 2, 'Affh Iyh', '111202013088@mhs.dinus.ac.id', '08123456789', 'S', 4, 'Semarang'),
 (25, 1, 'Dicoba ygy', 'coba@gmail.com', '08123456789', 'S', 4, 'Coba'),
 (26, 3, 'Terus Dicoba', 'bima@gmail.com', '12345', 'S', 1, 'Entah'),
 (27, 7, 'Capek ygy', 'bimandugal@gmail.com', '08123456789', 'S', 3, 'Entah'),
-(28, 1, 'Zoro', 'bima@gmail.com', '123', 'S', 4, 'Semarang'),
-(29, 3, 'Sanji', 'raka@gmail.com', '1234567890', 'M', 5, 'Jauh Disana'),
-(30, 4, 'Luffy', 'raka@gmail.com', '1234567890', 'XL', 4, 'Greed Island'),
+(28, 1, 'Zoro', 'bima@gmail.com', '123', 'S', 4, 'East Blue'),
+(29, 3, 'Sanji', 'raka@gmail.com', '1234567890', 'M', 5, 'North Blue'),
+(30, 4, 'Luffy', 'raka@gmail.com', '1234567890', 'XL', 4, 'East Blue'),
 (31, 3, 'atha', 'siangmalamygy@gmail.com', '12345678', 'S', 1, 'jauh'),
 (46, 2, 'Tasya', 'tasyakh99@gmail.com', '081234567890', 'XL', 5, 'GDC'),
 (47, 8, 'Audwina', 'morikhaglp@gmail.com ', '082241634974', 'L', 1, 'Jl. Antariksa I');
@@ -139,7 +138,7 @@ INSERT INTO `tamu` (`idtamu`, `nama`, `email`, `pesan`) VALUES
 (1, 'Bima', 'bima@gmail.com', 'Bismillah'),
 (2, 'Raka', 'raka@gmail.com', 'Lancar'),
 (3, 'Jati', 'jati@gmail.com', 'UAS'),
-(7, 'Tasya Kiyowo', 'tasyakiyowo@gmail.com', 'Woeee kalo bisa di buku tamu email orang disensor'),
+(7, 'Tasya Kiyowo', 'tasyakiyowo@gmail.com', 'Woeee'),
 (8, 'Audwina', 'morikhaglp@gmail.com', 'Cantik');
 
 --
