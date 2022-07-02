@@ -123,7 +123,7 @@
             }
             else{
                 if($password == $confirmpassword){
-                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password')";
+                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password',CURRENT_TIMESTAMP)";
                     mysqli_query($conn, $query);
                     echo
                     "<script> alert('Registrasi Sukses'); </script>";

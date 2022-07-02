@@ -123,7 +123,7 @@
             }
             else{
                 if($password == $confirmpassword){
-                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password')";
+                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password',CURRENT_TIMESTAMP)";
                     mysqli_query($conn, $query);
                     echo
                     "<script> alert('Registrasi Sukses'); </script>";
@@ -299,6 +299,11 @@
                     $id_barang = $_GET['id_barang'];
                     $barang = query("SELECT * FROM barang WHERE id_barang=".$_GET['id_barang']."");
                 }
+                // nama barang
+                $brg = "select stok from barang where id_barang=".$_GET['id_barang']."";
+                $hasil_brg = mysqli_query($conn, $brg);
+                $hasil_nama = mysqli_fetch_assoc($hasil_brg);
+                $terjual = 1000 - $hasil_nama["stok"];
                 foreach ($barang as $br) : 
             ?>
                 <div class="col-md-6 d-flex justify-content-center mx-auto">
@@ -311,6 +316,7 @@
                 <div class="col-md-6 d-flex flex-column justify-content-center">
                 <div id="nama">
                     <h1 class="display-5 fw-bold"><?= $br["nm_barang"]; ?></h1>
+                    <p>Dijual pada <?= $br["tgl"]; ?> | <?= $terjual; ?> terjual</p>
                 </div>
                 <hr>
                 <div id="harga">

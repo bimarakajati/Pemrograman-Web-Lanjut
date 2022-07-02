@@ -123,7 +123,7 @@
             }
             else{
                 if($password == $confirmpassword){
-                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password')";
+                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password',CURRENT_TIMESTAMP)";
                     mysqli_query($conn, $query);
                     echo
                     "<script> alert('Registrasi Sukses'); </script>";
@@ -349,7 +349,7 @@
                         $tamu = query("SELECT * FROM tamu WHERE nama LIKE '%". $_GET['cari'] ."%'");
                     }
                     $urut = 1;
-                    if(!empty($_SESSION["id"]) && $row["username"] == "admin"){
+                    if(!empty($_SESSION["id"]) && $row["username"] == "superadmin"){
                         echo "
                         <thead>
                             <tr>
@@ -357,6 +357,7 @@
                                 <th scope='col'>Nama</th>
                                 <th scope='col'>Email</th>
                                 <th scope='col'>Pesan</th>
+                                <th scope='col'>Tanggal</th>
                                 <th scope='col'>Aksi</th>
                             </tr>
                         </thead>
@@ -369,6 +370,7 @@
                             <td>".$tm['nama']."</td>
                             <td>".$tm['email']."</td>
                             <td>".$tm['pesan']."</td>
+                            <td>".date("Y-m-d h:i:s A", strtotime($tm['tgl']))."</td>
                             <td>
                             <a href='bukutamu_edit.php?idtamu=".$tm['idtamu']."' class='btn btn-warning mb-1 tombol'>Edit</a>
                             <a href='bukutamu_del.php?idtamu=".$tm['idtamu']."' class='btn btn-danger mb-1 tombol' onclick=\"return confirm('Apakah anda yakin ingin menghapus data ini??')\">Del</a>
@@ -383,6 +385,7 @@
                             <th scope='col'>No</th>
                             <th scope='col'>Nama</th>
                             <th scope='col'>Pesan</th>
+                            <th scope='col'>Tanggal</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -393,6 +396,7 @@
                         <th scope='row'>".$urut++."</th>
                         <td>".$tm['nama']."</td>
                         <td>".$tm['pesan']."</td>
+                        <td>".date("Y-m-d h:i:s A", strtotime($tm['tgl']))."</td>
                     </tr>
                     ";
                     endforeach;

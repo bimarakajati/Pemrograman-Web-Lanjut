@@ -128,7 +128,7 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
             }
             else{
                 if($password == $confirmpassword){
-                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password')";
+                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password',CURRENT_TIMESTAMP)";
                     mysqli_query($conn, $query);
                     echo
                     "<script> alert('Registrasi Sukses'); </script>";
@@ -263,38 +263,55 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
                     <hr />
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md 5 d-flex justify-content-center">
-                    <img src="img/logo/rakarts.png" class="oreo" alt="Contact Us" height="300px" width="300px" />
-                </div>
-                <div class="col-md-6">
-                    <form action="" method="post">
-                        <div class="mb-3">
-                            <label for="exampleForm" class="form-label">
-                                Nama Panjang
-                            </label>
-                            <input type="text" name="nama" class="form-control" id="exampleForm" value="<?= $nama; ?>" />
+            <?php
+                $tamu = query("SELECT * FROM tamu");
+                if(isset($_GET['cari'])){
+                    $tamu = query("SELECT * FROM tamu WHERE nama LIKE '%". $_GET['cari'] ."%'");
+                }
+                $urut = 1;
+                if(!empty($_SESSION["id"]) && $row["username"] == "superadmin"){
+                    echo "
+                    <div class='row'>
+                        <div class='col-md 5 d-flex justify-content-center'>
+                            <img src='img/logo/rakarts.png' class='oreo' alt='Contact Us' height='300px' width='300px' />
                         </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1" class="form-label">
-                                Alamat Email
-                            </label>
-                            <input type="email" name="email" class="form-control" id="exampleFormControlInput1" value="<?= $email; ?>" />
+                        <div class='col-md-6'>
+                            <form action='' method='post'>
+                                <div class='mb-3'>
+                                    <label for='exampleForm' class='form-label'>
+                                        Nama Panjang
+                                    </label>
+                                    <input type='text' name='nama' class='form-control' id='exampleForm' value='".$nama."' />
+                                </div>
+                                <div class='mb-3'>
+                                    <label for='exampleFormControlInput1' class='form-label'>
+                                        Alamat Email
+                                    </label>
+                                    <input type='email' name='email' class='form-control' id='exampleFormControlInput1' value='".$email."' />
+                                </div>
+                                <div class='mb-3'>
+                                    <label for='exampleFormControlTextarea1' class='form-label'>
+                                        Pesan
+                                    </label>
+                                    <textarea class='form-control' name='pesan' id='exampleFormControlTextarea1' rows='5'>".$pesan."</textarea>
+                                </div>
+                                <input type='hidden' name='idtamu' value='".$idtamu."'>
+                                <button type='submit' name='submit' class='btn btn-outline-dark'>
+                                    Update Pesan
+                                </button>
+                                <a href='bukutamu.php' class='btn btn-outline-dark'>Back</a>
+                            </form>
                         </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlTextarea1" class="form-label">
-                                Pesan
-                            </label>
-                            <textarea class="form-control" name="pesan" id="exampleFormControlTextarea1" rows="5"><?= $pesan; ?></textarea>
-                        </div>
-                        <input type="hidden" name="idtamu" value="<?= $idtamu; ?>">
-                        <button type="submit" name="submit" class="btn btn-outline-dark">
-                            Update Pesan
-                        </button>
-                        <a href="bukutamu.php" class="btn btn-outline-dark">Back</a>
-                    </form>
-                </div>
-            </div>
+                    </div>
+                    ";
+                } else {
+                    echo "
+                    <center>
+                        Anda tidak bisa mengakses halaman ini secara langsung<br>
+                    </center>
+                    ";
+                }
+            ?>
         </div>
 
         <!-- Footer -->

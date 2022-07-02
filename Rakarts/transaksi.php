@@ -123,7 +123,7 @@
             }
             else{
                 if($password == $confirmpassword){
-                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password')";
+                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password',CURRENT_TIMESTAMP)";
                     mysqli_query($conn, $query);
                     echo
                     "<script> alert('Registrasi Sukses'); </script>";
@@ -271,7 +271,7 @@
         <!-- <hr> -->
         <div class="table-responsive">
         <?php
-            if(!empty($_SESSION["id"]) && $row["username"] == "admin"){
+            if(!empty($_SESSION["id"]) AND $row["username"] == "admin" || $row["username"] == "superadmin"){
                 echo "
                 <table class='table table-bordered table-hover table-striped'>
                     <thead>
