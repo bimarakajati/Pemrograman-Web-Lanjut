@@ -319,7 +319,7 @@
                                     <label for='exampleFormControlInput1' class='form-label'>
                                         Email
                                     </label>
-                                    <input type='email' name='email' class='form-control' id='exampleFormControlInput1' placeholder='name@example.com' />
+                                    <input type='email' name='email' class='form-control' id='exampleFormControlInput1' placeholder='name@rakarts.com' />
                                 </div>
                             ";
                         }
@@ -330,7 +330,8 @@
                             </label>
                             <textarea class="form-control" name="pesan" id="exampleFormControlTextarea1" rows="5"></textarea>
                         </div>
-                        <button type="submit" name="submit" class="btn btn-outline-dark">
+                        <button type="submit" name="submit" class="btn btn-outline-warning" style="color: black;">
+                        <!-- <button type="submit" name="submit" class="btn btn-outline-dark"> -->
                             Kirim Pesan
                         </button>
                     </form>

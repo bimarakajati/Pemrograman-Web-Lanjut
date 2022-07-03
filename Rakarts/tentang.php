@@ -232,11 +232,12 @@
             <h1 class="text-dark fw-bold mb-4"><span class="fa fa-heart me-1"></span>Tentang Kami</h1>
             <div class="row">
                 <div class="col-md-6">
-                    <p class="lead mb-4"> Rakarts Store adalah retail berpengalaman yang dibuat untuk para penggemar anime dan budaya anime. Kami membawa 100% pakaian EKSKLUSIF berlisensi resmi, aksesori, dan lainnya dari nama-nama besar di anime seperti Attack on Titan, Hunter X Hunter, Kimetsu no Yaiba dan banyak lagi. <br />
+                    <p class="lead mb-4"> Rakarts Store adalah retail berpengalaman yang dibuat untuk para penggemar anime dan budaya anime. Kami membawa 100% pakaian eksklusif berlisensi resmi, aksesori, dan lainnya dari nama-nama besar di anime seperti Attack on Titan, Hunter X Hunter, Kimetsu no Yaiba dan banyak lagi. <br />
                         <br /> Kami memulai Rakarts Store untuk membuat satu tempat bagi semua penggemar anime untuk menemukan barang anime keren yang tidak ada di tempat lain. Kami berambisi untuk membawa semua hal tentang pengalaman, gaya hidup, dan anime ke dunia yang lebih luas. <br />
                         <br /> Rakarts Store akan selalu memberikan anda kualitas tertinggi pada produk kami dan layanan terbaik untuk membuat anda puas.
                     </p>
-                    <a href="mailto:111202013088@mhs.dinus.ac.id" class="btn btn-outline-dark px-3"> Email Kami </a>
+                    <a href="mailto:111202013088@mhs.dinus.ac.id" class="btn btn-outline-warning px-3" style="color: black;"> Email Kami </a>
+                    <!-- <a href="mailto:111202013088@mhs.dinus.ac.id" class="btn btn-outline-dark px-3"> Email Kami </a> -->
                 </div>
                 <div class="col-md-6">
                     <div class="map-responsive">

@@ -151,18 +151,23 @@
             $hasil_brg = mysqli_query($conn, $brg);
             $hasil_nama = mysqli_fetch_assoc($hasil_brg);
             $total = $hasil_nama["stok"] - $_GET['jumlah'];
-            // update stok
-            $sql = "update barang set stok = ".$total." where barang.id_barang = ".$_GET['id_barang']."";
-            $conn->query($sql);
-            // insert data
-            $sql = "INSERT INTO pesanan (id_barang, nama, email, hp, ukuran, jumlah, alamat)
-            VALUES ('".$_GET['id_barang']."', '".$_GET['nama']."', '".$_GET['email']."', '".$_GET['hp']."', '".$_GET['ukuran']."', '".$_GET['jumlah']."', '".$_GET['alamat']."')";
-            if ($conn->query($sql) === TRUE) {
-                $_SESSION['success'] = 1;
-                header('Location: pesan.php?id_barang='.$_GET["id_barang"].'');
-            } 
-            else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            // cek stok
+            if($total!=0 && $total<$_GET['jumlah']){
+                echo "<script> alert('stok kurang dari ".$_GET['jumlah']."'); </script>";
+            } else {
+                // update stok
+                $sql = "update barang set stok = ".$total." where barang.id_barang = ".$_GET['id_barang']."";
+                $conn->query($sql);
+                // insert data
+                $sql = "INSERT INTO pesanan (id_barang, nama, email, hp, ukuran, jumlah, alamat)
+                VALUES ('".$_GET['id_barang']."', '".$_GET['nama']."', '".$_GET['email']."', '".$_GET['hp']."', '".$_GET['ukuran']."', '".$_GET['jumlah']."', '".$_GET['alamat']."')";
+                if ($conn->query($sql) === TRUE) {
+                    $_SESSION['success'] = 1;
+                    // header('Location: pesan.php?id_barang='.$_GET["id_barang"].'');
+                } 
+                else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
             }
         }
         ?>
@@ -303,7 +308,11 @@
                 $brg = "select stok from barang where id_barang=".$_GET['id_barang']."";
                 $hasil_brg = mysqli_query($conn, $brg);
                 $hasil_nama = mysqli_fetch_assoc($hasil_brg);
-                $terjual = 1000 - $hasil_nama["stok"];
+                if($hasil_nama["stok"] <= 0){
+                    $terjual = 1000;
+                } else {
+                    $terjual = 1000 - $hasil_nama["stok"];
+                }
                 foreach ($barang as $br) : 
             ?>
                 <div class="col-md-6 d-flex justify-content-center mx-auto">
@@ -320,7 +329,7 @@
                 </div>
                 <hr>
                 <div id="harga">
-                    <h2 class="my-4"><?= rupiah($br["harga"]); ?> | Stok: <?= $br["stok"]; ?></h2>
+                    <h2><?= rupiah($br["harga"]); ?> | Stok: <?= $br["stok"]; ?></h2>
                 </div>
                 <div id="deskripsi">
                     <p class="lead"><?= $br["deskripsi"]; ?></p>

@@ -81,34 +81,34 @@
 
         <?php
         // LOGIN
-            if(isset($_POST["submit_login"])){
-                $usernameemail = $_POST["usernameemail"];
-                $password = $_POST["password"];
-                $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE username = '$usernameemail' OR email = '$usernameemail'");
-                $row = mysqli_fetch_assoc($result);
-                if(mysqli_num_rows($result) > 0){
-                    if($password == $row['password']){
-                        $_SESSION["login"] = true;
-                        $_SESSION["id"] = $row["id"];
-                        header("Location: index.php");
-                        }
-                    else{
-                        echo
-                        "<script> alert('Password Salah'); </script>";
+        if(isset($_POST["submit_login"])){
+            $usernameemail = $_POST["usernameemail"];
+            $password = $_POST["password"];
+            $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE username = '$usernameemail' OR email = '$usernameemail'");
+            $row = mysqli_fetch_assoc($result);
+            if(mysqli_num_rows($result) > 0){
+                if($password == $row['password']){
+                    $_SESSION["login"] = true;
+                    $_SESSION["id"] = $row["id"];
+                    header("Location: index.php");
                     }
-                }
                 else{
                     echo
-                    "<script> alert('Pengguna tidak ditemukan'); </script>";
+                    "<script> alert('Password Salah'); </script>";
                 }
             }
-        // LOGOUT
-            if(isset($_POST["submit_logout"])){
-                $_SESSION = [];
-                session_unset();
-                session_destroy();
-                header("Location: index.php");
+            else{
+                echo
+                "<script> alert('Pengguna tidak ditemukan'); </script>";
             }
+        }
+        // LOGOUT
+        if(isset($_POST["submit_logout"])){
+            $_SESSION = [];
+            session_unset();
+            session_destroy();
+            header("Location: index.php");
+        }
         // REGISTER
         if(isset($_POST["submit_register"])){
             $name = $_POST["name"];
@@ -268,11 +268,11 @@
         <div class="container">
             <div class="row p-4">
                 <div class="text-center">
-                    <h1 class="text-dark fw-bold mb-4">Produk Kami</h1>
+                    <h1 class="text-dark fw-bold">Produk Kami</h1>
                     <hr>
                 </div>
             </div>
-            <div class="row p-4 text-dark d-flex justify-content-around" id="animate">
+            <div class="row mb-4 text-dark d-flex justify-content-around" id="animate">
                 <?php
                 $barang = query("SELECT * FROM barang");
                 if(isset($_GET['cari'])){
@@ -280,12 +280,18 @@
                 }
                 foreach ($barang as $br) : 
                 ?>
-                <div class="card my-5 py-4">
+                <div class="card mb-5 py-4">
                     <img src="img/kaos/<?= $br["ft_barang"]; ?>" class="card-img-top" alt="<?= $br["nm_barang"]; ?>">
                     <div class="card-body">
                         <h5 class="card-title"><?= $br["nm_barang"]; ?></h5>
                         <p class="card-text"><?= rupiah($br["harga"]); ?> | Stok: <?= $br["stok"]; ?></p>
-                        <a href="pesan.php?id_barang=<?= $br["id_barang"]; ?>" class="btn btn-outline-dark">Beli</a>
+                        <?php
+                            if($br["stok"]<=0){
+                                echo "<p class='btn btn-outline-secondary'>Stok Kosong</p>";
+                            } else {
+                                echo "<a href='pesan.php?id_barang=". $br['id_barang'] ."' class='btn btn-outline-dark'>Beli</a>";
+                            }
+                        ?>
                     </div>
                 </div>
                 <?php endforeach; ?>
