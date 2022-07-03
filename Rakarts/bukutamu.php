@@ -81,34 +81,34 @@
 
         <?php
         // LOGIN
-            if(isset($_POST["submit_login"])){
-                $usernameemail = $_POST["usernameemail"];
-                $password = $_POST["password"];
-                $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE username = '$usernameemail' OR email = '$usernameemail'");
-                $row = mysqli_fetch_assoc($result);
-                if(mysqli_num_rows($result) > 0){
-                    if($password == $row['password']){
-                        $_SESSION["login"] = true;
-                        $_SESSION["id"] = $row["id"];
-                        header("Location: bukutamu.php");
-                        }
-                    else{
-                        echo
-                        "<script> alert('Password Salah'); </script>";
+        if(isset($_POST["submit_login"])){
+            $usernameemail = $_POST["usernameemail"];
+            $password = $_POST["password"];
+            $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE username = '$usernameemail' OR email = '$usernameemail'");
+            $row = mysqli_fetch_assoc($result);
+            if(mysqli_num_rows($result) > 0){
+                if($password == $row['password']){
+                    $_SESSION["login"] = true;
+                    $_SESSION["id"] = $row["id"];
+                    header("Location: bukutamu.php");
                     }
-                }
                 else{
                     echo
-                    "<script> alert('Pengguna tidak ditemukan'); </script>";
+                    "<script> alert('Password Salah'); </script>";
                 }
             }
-        // LOGOUT
-            if(isset($_POST["submit_logout"])){
-                $_SESSION = [];
-                session_unset();
-                session_destroy();
-                header("Location: bukutamu.php");
+            else{
+                echo
+                "<script> alert('Pengguna tidak ditemukan'); </script>";
             }
+        }
+        // LOGOUT
+        if(isset($_POST["submit_logout"])){
+            $_SESSION = [];
+            session_unset();
+            session_destroy();
+            header("Location: bukutamu.php");
+        }
         // REGISTER
         if(isset($_POST["submit_register"])){
             $name = $_POST["name"];
@@ -331,7 +331,6 @@
                             <textarea class="form-control" name="pesan" id="exampleFormControlTextarea1" rows="5"></textarea>
                         </div>
                         <button type="submit" name="submit" class="btn btn-outline-warning" style="color: black;">
-                        <!-- <button type="submit" name="submit" class="btn btn-outline-dark"> -->
                             Kirim Pesan
                         </button>
                     </form>

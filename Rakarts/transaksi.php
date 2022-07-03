@@ -72,7 +72,6 @@
                                 </li>
                             </ul>
                             ";
-                            // header("Location: login.php");
                         }
                     ?>
                 </div>
@@ -81,34 +80,34 @@
 
         <?php
         // LOGIN
-            if(isset($_POST["submit_login"])){
-                $usernameemail = $_POST["usernameemail"];
-                $password = $_POST["password"];
-                $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE username = '$usernameemail' OR email = '$usernameemail'");
-                $row = mysqli_fetch_assoc($result);
-                if(mysqli_num_rows($result) > 0){
-                    if($password == $row['password']){
-                        $_SESSION["login"] = true;
-                        $_SESSION["id"] = $row["id"];
-                        header("Location: transaksi.php");
-                        }
-                    else{
-                        echo
-                        "<script> alert('Password Salah'); </script>";
+        if(isset($_POST["submit_login"])){
+            $usernameemail = $_POST["usernameemail"];
+            $password = $_POST["password"];
+            $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE username = '$usernameemail' OR email = '$usernameemail'");
+            $row = mysqli_fetch_assoc($result);
+            if(mysqli_num_rows($result) > 0){
+                if($password == $row['password']){
+                    $_SESSION["login"] = true;
+                    $_SESSION["id"] = $row["id"];
+                    header("Location: transaksi.php");
                     }
-                }
                 else{
                     echo
-                    "<script> alert('Pengguna tidak ditemukan'); </script>";
+                    "<script> alert('Password Salah'); </script>";
                 }
             }
-        // LOGOUT
-            if(isset($_POST["submit_logout"])){
-                $_SESSION = [];
-                session_unset();
-                session_destroy();
-                header("Location: transaksi.php");
+            else{
+                echo
+                "<script> alert('Pengguna tidak ditemukan'); </script>";
             }
+        }
+        // LOGOUT
+        if(isset($_POST["submit_logout"])){
+            $_SESSION = [];
+            session_unset();
+            session_destroy();
+            header("Location: transaksi.php");
+        }
         // REGISTER
         if(isset($_POST["submit_register"])){
             $name = $_POST["name"];
@@ -257,18 +256,17 @@
         </div>
 
         <!-- Content -->
-        <div class="container mb-5 bukutamu" id="animate">
-            <div class="row my-4">
+        <div class="container bukutamu" id="animate">
+            <div class="row">
                 <div class="text-center">
-                    <h1 class="text-dark fw-bold mb-4"><span class="fa fa-book me-1"></span>Daftar Transaksi</h1>
+                    <h1 class="text-dark fw-bold mt-4"><span class="fa fa-book me-1"></span>Daftar Transaksi</h1>
                     <hr>
                 </div>
             </div>
         </div>
 
         <!-- Daftar Transaksi -->
-        <div class="container my-5" id="animate">
-        <!-- <hr> -->
+        <div class="container mb-4" id="animate">
         <div class="table-responsive">
         <?php
             if(!empty($_SESSION["id"]) AND $row["username"] == "admin" || $row["username"] == "superadmin"){

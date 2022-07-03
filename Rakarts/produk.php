@@ -73,7 +73,6 @@
                                 </li>
                             </ul>
                             ";
-                            // header("Location: login.php");
                         }
                     ?>
                 </div>
@@ -303,6 +302,7 @@
         <!-- SCROLL UP BUTTON -->
         <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-caret-up"></i></button>
         <script type="text/javascript" src="js/scroll-up.js"></script>
+        
         <!-- Bootstrap -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </body>

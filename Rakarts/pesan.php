@@ -163,7 +163,7 @@
                 VALUES ('".$_GET['id_barang']."', '".$_GET['nama']."', '".$_GET['email']."', '".$_GET['hp']."', '".$_GET['ukuran']."', '".$_GET['jumlah']."', '".$_GET['alamat']."')";
                 if ($conn->query($sql) === TRUE) {
                     $_SESSION['success'] = 1;
-                    // header('Location: pesan.php?id_barang='.$_GET["id_barang"].'');
+                    header('Location: pesan.php?id_barang='.$_GET["id_barang"].'');
                 } 
                 else {
                     echo "Error: " . $sql . "<br>" . $conn->error;
