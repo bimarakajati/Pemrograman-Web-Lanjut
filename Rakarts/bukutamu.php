@@ -83,23 +83,21 @@
         // LOGIN
         if(isset($_POST["submit_login"])){
             $usernameemail = $_POST["usernameemail"];
-            $password = $_POST["password"];
+            $password = md5($_POST["password"]);
             $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE username = '$usernameemail' OR email = '$usernameemail'");
             $row = mysqli_fetch_assoc($result);
             if(mysqli_num_rows($result) > 0){
-                if($password == $row['password']){
+                if($password == md5($row['password'])){
                     $_SESSION["login"] = true;
                     $_SESSION["id"] = $row["id"];
                     header("Location: bukutamu.php");
                     }
                 else{
-                    echo
-                    "<script> alert('Password Salah'); </script>";
+                    echo "<script> alert('Password Salah'); </script>";
                 }
             }
             else{
-                echo
-                "<script> alert('Pengguna tidak ditemukan'); </script>";
+                echo "<script> alert('Pengguna tidak ditemukan'); </script>";
             }
         }
         // LOGOUT
@@ -123,7 +121,7 @@
             }
             else{
                 if($password == $confirmpassword){
-                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password',CURRENT_TIMESTAMP)";
+                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password',2,CURRENT_TIMESTAMP)";
                     mysqli_query($conn, $query);
                     echo
                     "<script> alert('Registrasi Sukses'); </script>";
@@ -139,7 +137,7 @@
             $nama = $_POST['nama'];
             $email = $_POST['email'];
             $pesan = $_POST['pesan'];
-
+            
             $sql = "insert into tamu (nama,email,pesan) values ('$nama','$email','$pesan');";
             $hasil = mysqli_query($conn, $sql);
 
@@ -147,7 +145,38 @@
                 header("location:bukutamu.php");
             }
             else
-                echo "Tambah data gagal...";
+            echo "Tambah data gagal...";
+        }
+        // DELETE BUKU TAMU
+        if(isset($_GET['op'])){
+            $op = $_GET['op'];
+            if($op == 'del'){
+                $idtamu = $_GET['idtamu'];
+                if($_SESSION!=NULL){
+                    $id = $_SESSION["id"];
+                    $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE id = $id");
+                    $row = mysqli_fetch_assoc($result);
+                    
+                    if(!empty($_SESSION["id"]) && $row["level"] == 0){
+                        $sql = "delete from tamu where idtamu='$idtamu'";
+                        $hasil = mysqli_query($conn, $sql);
+                        if ($hasil)
+                            header("location:bukutamu.php");
+                        else
+                            echo "Hapus data gagal...";
+                    } else { // apabila bukan admin level 0
+                        echo "
+                        <script> alert('Anda harus masuk sebagai admin terlebih dahulu untuk mengakses halaman ini'); </script>
+                        <script> location.href='bukutamu.php'; </script>
+                        ";
+                    }
+                } else { // apabila ngga login
+                    echo "
+                    <script> alert('Anda harus masuk sebagai admin terlebih dahulu untuk mengakses halaman ini'); </script>
+                    <script> location.href='bukutamu.php'; </script>
+                    ";
+                }
+            }
         }
         ?>
         <!-- Seach -->
@@ -349,7 +378,7 @@
                         $tamu = query("SELECT * FROM tamu WHERE nama LIKE '%". $_GET['cari'] ."%'");
                     }
                     $urut = 1;
-                    if(!empty($_SESSION["id"]) && $row["username"] == "superadmin"){
+                    if(!empty($_SESSION["id"]) && $row["level"] == 0){
                         echo "
                         <thead>
                             <tr>
@@ -373,7 +402,7 @@
                             <td>".date("Y-m-d h:i:s A", strtotime($tm['tgl']))."</td>
                             <td>
                             <a href='bukutamu_edit.php?idtamu=".$tm['idtamu']."' class='btn btn-warning mb-1 tombol'>Edit</a>
-                            <a href='bukutamu_del.php?idtamu=".$tm['idtamu']."' class='btn btn-danger mb-1 tombol' onclick=\"return confirm('Apakah anda yakin ingin menghapus data ini??')\">Del</a>
+                            <a href='bukutamu.php?op=del&idtamu=".$tm['idtamu']."' class='btn btn-danger mb-1 tombol' onclick=\"return confirm('Apakah anda yakin ingin menghapus data ini?')\">Del</a>
                             </td>
                         </tr>
                         ";

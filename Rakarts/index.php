@@ -83,11 +83,11 @@
         // LOGIN
         if(isset($_POST["submit_login"])){
             $usernameemail = $_POST["usernameemail"];
-            $password = $_POST["password"];
+            $password = md5($_POST["password"]);
             $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE username = '$usernameemail' OR email = '$usernameemail'");
             $row = mysqli_fetch_assoc($result);
             if(mysqli_num_rows($result) > 0){
-                if($password == $row['password']){
+                if($password == md5($row['password'])){
                     $_SESSION["login"] = true;
                     $_SESSION["id"] = $row["id"];
                     header("Location: index.php");
@@ -123,7 +123,7 @@
             }
             else{
                 if($password == $confirmpassword){
-                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password',CURRENT_TIMESTAMP)";
+                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password',2,CURRENT_TIMESTAMP)";
                     mysqli_query($conn, $query);
                     echo
                     "<script> alert('Registrasi Sukses'); </script>";

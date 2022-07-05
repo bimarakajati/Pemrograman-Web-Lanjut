@@ -51,9 +51,6 @@
                             echo "
                             <ul class='navbar-nav'>
                                 <li class='nav-item'>
-                                    <button class='btn btn-outline-warning mb-1' type='submit' data-bs-toggle='modal' data-bs-target='#modalSearch' style='margin-right: 8px;'><span class='fa fa-search me-1'></span>Search</button>
-                                </li>
-                                <li class='nav-item'>
                                     <button class='btn btn-outline-warning mb-1' type='button' data-bs-toggle='modal' data-bs-target='#modalLogout'><span class='fa fa-user me-1'></span>Halo, ".$row["name"]."</button>
                                 </li>
                             </ul>
@@ -62,9 +59,6 @@
                         else{
                             echo "
                             <ul class='navbar-nav'>
-                                <li class='nav-item'>
-                                    <button class='btn btn-outline-warning mb-1' type='submit' data-bs-toggle='modal' data-bs-target='#modalSearch' style='margin-right: 8px;'><span class='fa fa-search me-1'></span>Search</button>
-                                </li>
                                 <li class='nav-item'>
                                     <button class='btn btn-outline-warning mb-1' type='button' data-bs-toggle='modal' data-bs-target='#modalLogin' style='margin-right: 8px'><span class='fa fa-sign-in me-1'></span>Masuk</button>
                                 </li>
@@ -81,16 +75,17 @@
 
         <?php
         // LOGIN
+        $id_barang = $_GET['id_barang'];
         if(isset($_POST["submit_login"])){
             $usernameemail = $_POST["usernameemail"];
-            $password = $_POST["password"];
+            $password = md5($_POST["password"]);
             $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE username = '$usernameemail' OR email = '$usernameemail'");
             $row = mysqli_fetch_assoc($result);
             if(mysqli_num_rows($result) > 0){
-                if($password == $row['password']){
+                if($password == md5($row['password'])){
                     $_SESSION["login"] = true;
                     $_SESSION["id"] = $row["id"];
-                    header("Location: index.php");
+                    header("Location: pesan.php?id_barang=".$id_barang."");
                     }
                 else{
                     echo
@@ -107,7 +102,7 @@
             $_SESSION = [];
             session_unset();
             session_destroy();
-            header("Location: index.php");
+            header("Location: pesan.php?id_barang=".$id_barang."");
         }
         // REGISTER
         if(isset($_POST["submit_register"])){
@@ -123,7 +118,7 @@
             }
             else{
                 if($password == $confirmpassword){
-                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password',CURRENT_TIMESTAMP)";
+                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password',2,CURRENT_TIMESTAMP)";
                     mysqli_query($conn, $query);
                     echo
                     "<script> alert('Registrasi Sukses'); </script>";
@@ -145,25 +140,25 @@
             unset($_SESSION['success']);
         }
         // INPUT DATA
-        if(isset($_GET['submit'])){
+        if(isset($_POST['submit'])){
             // nama barang
-            $brg = "select stok from barang where id_barang=".$_GET['id_barang']."";
+            $brg = "select stok from barang where id_barang=".$_POST['id_barang']."";
             $hasil_brg = mysqli_query($conn, $brg);
             $hasil_nama = mysqli_fetch_assoc($hasil_brg);
-            $total = $hasil_nama["stok"] - $_GET['jumlah'];
+            $total = $hasil_nama["stok"] - $_POST['jumlah'];
             // cek stok
-            if($total!=0 && $total<$_GET['jumlah']){
-                echo "<script> alert('stok kurang dari ".$_GET['jumlah']."'); </script>";
+            if($total!=0 && $total<$_POST['jumlah']){
+                echo "<script> alert('stok kurang dari ".$_POST['jumlah']."'); </script>";
             } else {
                 // update stok
-                $sql = "update barang set stok = ".$total." where barang.id_barang = ".$_GET['id_barang']."";
+                $sql = "update barang set stok = ".$total." where barang.id_barang = ".$_POST['id_barang']."";
                 $conn->query($sql);
                 // insert data
                 $sql = "INSERT INTO pesanan (id_barang, nama, email, hp, ukuran, jumlah, alamat)
-                VALUES ('".$_GET['id_barang']."', '".$_GET['nama']."', '".$_GET['email']."', '".$_GET['hp']."', '".$_GET['ukuran']."', '".$_GET['jumlah']."', '".$_GET['alamat']."')";
+                VALUES ('".$_POST['id_barang']."', '".$_POST['nama']."', '".$_POST['email']."', '".$_POST['hp']."', '".$_POST['ukuran']."', '".$_POST['jumlah']."', '".$_POST['alamat']."')";
                 if ($conn->query($sql) === TRUE) {
                     $_SESSION['success'] = 1;
-                    header('Location: pesan.php?id_barang='.$_GET["id_barang"].'');
+                    header('Location: pesan.php?id_barang='.$_POST["id_barang"].'');
                 } 
                 else {
                     echo "Error: " . $sql . "<br>" . $conn->error;
@@ -171,29 +166,6 @@
             }
         }
         ?>
-        <!-- Seach -->
-        <div class="modal fade" tabindex="-1" id="modalSearch">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Cari</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="" method="post">
-                            <div class="mb-3">
-                                <label for="usernameemail" class="form-label">Apa yang ingin anda cari?</label>
-                                <input type="text" name="usernameemail" class="form-control" id="usernameemail" aria-describedby="emailHelp" placeholder="Masukkan kata yang ingin dicari" />
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                                <button type="submit" name="submit_cari" class="btn btn-warning">Cari</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
         
         <!-- Login -->
         <div class="modal fade" tabindex="-1" id="modalLogin">
@@ -316,9 +288,9 @@
                 foreach ($barang as $br) : 
             ?>
                 <div class="col-md-6 d-flex justify-content-center mx-auto">
-                    <div class="cart_logo">
+                    <div class="cart_logo mb-2">
                         <div id="gambar">
-                            <img class="cart_img" src="img/kaos/<?= $br["ft_barang"]; ?>" alt="<?= $br["nm_barang"]; ?>" class="cart_img">
+                            <img class="cart_img" src="img/kaos/<?= $br["ft_barang"]; ?>" alt="<?= $br["nm_barang"]; ?>">
                         </div>
                     </div>
                 </div>
@@ -337,7 +309,7 @@
             <?php endforeach; ?>
 
             <!-- Form -->
-            <form action="pesan.php" method="get">
+            <form action="pesan.php" method="post">
                 <?php
                     if(!empty($_SESSION["id"])){
                         $id = $_SESSION["id"];

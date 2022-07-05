@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 03 Jul 2022 pada 18.04
+-- Waktu pembuatan: 05 Jul 2022 pada 04.02
 -- Versi server: 10.4.21-MariaDB
 -- Versi PHP: 8.0.10
 
@@ -63,6 +63,7 @@ CREATE TABLE `pengguna` (
   `username` varchar(25) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(75) NOT NULL,
+  `level` int(11) NOT NULL,
   `tgl` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -70,14 +71,14 @@ CREATE TABLE `pengguna` (
 -- Dumping data untuk tabel `pengguna`
 --
 
-INSERT INTO `pengguna` (`id`, `name`, `username`, `email`, `password`, `tgl`) VALUES
-(1, 'Admin', 'admin', 'admin@rakarts.com', 'admin', '2022-07-02 12:58:09'),
-(2, 'Super Admin', 'superadmin', 'superadmin@rakarts.com', 'superadmin', '2022-07-02 12:58:09'),
-(3, 'User', 'user', 'user@gmail.com', 'user', '2022-07-02 12:58:09'),
-(4, 'Bima', 'bimarakajati', 'bimandugal@gmail.com', 'bima', '2022-07-02 12:58:09'),
-(5, 'Atha', 'athaard', 'siangmalamygy@gmail.com', '123', '2022-07-02 12:58:09'),
-(6, 'Tasya', 'Tacoyy', 'tasyakh99@gmail.com', 'ltmltmltm', '2022-07-02 12:58:09'),
-(7, 'Audwina', 'audwina', 'morikhaglp@gmail.com', 'akucantik', '2022-07-02 12:58:09');
+INSERT INTO `pengguna` (`id`, `name`, `username`, `email`, `password`, `level`, `tgl`) VALUES
+(1, 'Super Admin', 'superadmin', 'superadmin@rakarts.com', 'superadmin', 0, '2022-07-02 12:58:09'),
+(2, 'Admin', 'admin', 'admin@rakarts.com', 'admin', 1, '2022-07-02 12:58:09'),
+(3, 'User', 'user', 'user@gmail.com', 'user', 2, '2022-07-02 12:58:09'),
+(4, 'Bima', 'bimarakajati', 'bimandugal@gmail.com', 'bima', 2, '2022-07-02 12:58:09'),
+(5, 'Atha', 'athaard', 'siangmalamygy@gmail.com', '123', 2, '2022-07-02 12:58:09'),
+(6, 'Tasya', 'Tacoyy', 'tasyakh99@gmail.com', 'ltmltmltm', 2, '2022-07-02 12:58:09'),
+(7, 'Audwina', 'audwina', 'morikhaglp@gmail.com', 'akucantik', 2, '2022-07-02 12:58:09');
 
 -- --------------------------------------------------------
 

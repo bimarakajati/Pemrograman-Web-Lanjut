@@ -86,16 +86,17 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
 
         <?php
         // LOGIN
+        $idtamu = $_GET['idtamu'];
         if(isset($_POST["submit_login"])){
             $usernameemail = $_POST["usernameemail"];
-            $password = $_POST["password"];
+            $password = md5($_POST["password"]);
             $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE username = '$usernameemail' OR email = '$usernameemail'");
             $row = mysqli_fetch_assoc($result);
             if(mysqli_num_rows($result) > 0){
-                if($password == $row['password']){
+                if($password == md5($row['password'])){
                     $_SESSION["login"] = true;
                     $_SESSION["id"] = $row["id"];
-                    header("Location: index.php");
+                    header("Location: bukutamu_edit.php?idtamu=".$idtamu."");
                     }
                 else{
                     echo
@@ -112,7 +113,7 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
             $_SESSION = [];
             session_unset();
             session_destroy();
-            header("Location: index.php");
+            header("Location: bukutamu_edit.php?idtamu=".$idtamu."");
         }
         // REGISTER
         if(isset($_POST["submit_register"])){
@@ -128,7 +129,7 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
             }
             else{
                 if($password == $confirmpassword){
-                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password',CURRENT_TIMESTAMP)";
+                    $query = "INSERT INTO pengguna VALUES('','$name','$username','$email','$password',2,CURRENT_TIMESTAMP)";
                     mysqli_query($conn, $query);
                     echo
                     "<script> alert('Registrasi Sukses'); </script>";
@@ -269,7 +270,7 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
                     $tamu = query("SELECT * FROM tamu WHERE nama LIKE '%". $_GET['cari'] ."%'");
                 }
                 $urut = 1;
-                if(!empty($_SESSION["id"]) && $row["username"] == "superadmin"){
+                if(!empty($_SESSION["id"]) && $row["level"] == 0){
                     echo "
                     <div class='row'>
                         <div class='col-md 5 d-flex justify-content-center'>
@@ -306,9 +307,11 @@ while ($rec = mysqli_fetch_assoc($hasil)) {
                     ";
                 } else {
                     echo "
-                    <center>
-                        Anda tidak bisa mengakses halaman ini secara langsung<br>
-                    </center>
+                    <div class='alert alert-danger' role='alert'>
+                        <center>
+                            <b>Anda tidak bisa mengakses halaman ini secara langsung</b><br>
+                        </center>
+                    </div>
                     ";
                 }
             ?>
