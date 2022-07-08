@@ -25,9 +25,6 @@
                             <a class="nav-link" href="produk.php">Produk</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="transaksi.php">Daftar Transaksi</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link active" href="tentang.php">Tentang</a>
                         </li>
                         <li class="nav-item">
@@ -47,15 +44,45 @@
                             $id = $_SESSION["id"];
                             $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE id = $id");
                             $row = mysqli_fetch_assoc($result);
-                            echo "
-                            <ul class='navbar-nav'>
-                                <li class='nav-item'>
-                                    <button class='btn btn-outline-warning mb-1' type='button' data-bs-toggle='modal' data-bs-target='#modalLogout'><span class='fa fa-user me-1'></span>Halo, ".$row["name"]."</button>
-                                </li>
-                            </ul>
-                            ";
-                        }
-                        else{
+                            if($row["level"] == 0) {
+                                echo "
+                                <ul class='navbar-nav'>
+                                    <div class='dropdown'>
+                                        <button class='btn btn-outline-warning mb-1 dropdown-toggle' type='button' id='dropdownMenuButton1' data-bs-toggle='dropdown' aria-expanded='false'>
+                                        <span class='fa fa-user me-1'></span>Halo, ".$row["name"]."
+                                        </button>
+                                        <ul class='dropdown-menu dropdown-menu-dark dropdown-menu-end' aria-labelledby='dropdownMenuButton1' style='width:100%;'>
+                                        <li><a class='dropdown-item' href='pengguna.php'>Daftar Pengguna</a></li>
+                                        <li><a class='dropdown-item' href='transaksi.php'>Daftar Transaksi</a></li>
+                                        <li><a class='dropdown-item' data-bs-toggle='modal' data-bs-target='#modalLogout'>Keluar</a></li>
+                                        </ul>
+                                    </div>
+                                </ul>
+                                ";
+                            } elseif($row["level"] == 1) {
+                                echo "
+                                <ul class='navbar-nav'>
+                                    <div class='dropdown'>
+                                        <button class='btn btn-outline-warning mb-1 dropdown-toggle' type='button' id='dropdownMenuButton1' data-bs-toggle='dropdown' aria-expanded='false'>
+                                        <span class='fa fa-user me-1'></span>Halo, ".$row["name"]."
+                                        </button>
+                                        <ul class='dropdown-menu dropdown-menu-dark dropdown-menu-end' aria-labelledby='dropdownMenuButton1' style='width:100%;'>
+                                        <li><a class='dropdown-item' href='transaksi.php'>Daftar Transaksi</a></li>
+                                        <li><a class='dropdown-item' data-bs-toggle='modal' data-bs-target='#modalLogout'>Keluar</a></li>
+                                        </ul>
+                                    </div>
+                                </ul>
+                                ";
+                            } else {
+                                echo "
+                                <ul class='navbar-nav'>
+                                    <li class='nav-item'>
+                                        <button class='btn btn-outline-warning mb-1' type='button' data-bs-toggle='modal' data-bs-target='#modalLogout'><span class='fa fa-user me-1'></span>Halo, ".$row["name"]."</button>
+                                    </li>
+                                </ul>
+                                ";
+                            }
+                        } else {
                             echo "
                             <ul class='navbar-nav'>
                                 <li class='nav-item'>

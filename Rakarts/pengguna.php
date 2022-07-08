@@ -18,7 +18,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav">
+                <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="index.php">Beranda</a>
                         </li>
@@ -29,18 +29,17 @@
                             <a class="nav-link" href="tentang.php">Tentang</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="bukutamu.php">Buku Tamu</a>
+                            <a class="nav-link" href="bukutamu.php">Buku Tamu</a>
                         </li>
-                    </ul>
-                    <ul class="nav navbar-nav mx-auto">
+                    </ul><ul class="nav navbar-nav mx-auto">
                         <!-- <a href="index.php">
                             <img src="img/logo/logo.png" alt="Logo" height="35px" />
                         </a> -->
                     </ul>
                     
                     <?php
-                        include "koneksi.php";
                         session_start();
+                        require 'koneksi.php';
                         if(!empty($_SESSION["id"])){
                             $id = $_SESSION["id"];
                             $result = mysqli_query($conn, "SELECT * FROM pengguna WHERE id = $id");
@@ -48,6 +47,9 @@
                             if($row["level"] == 0) {
                                 echo "
                                 <ul class='navbar-nav'>
+                                    <li class='nav-item'>
+                                        <button class='btn btn-outline-warning mb-1' type='submit' data-bs-toggle='modal' data-bs-target='#modalSearch' style='margin-right: 8px;'><span class='fa fa-search me-1'></span>Search</button>
+                                    </li>
                                     <div class='dropdown'>
                                         <button class='btn btn-outline-warning mb-1 dropdown-toggle' type='button' id='dropdownMenuButton1' data-bs-toggle='dropdown' aria-expanded='false'>
                                         <span class='fa fa-user me-1'></span>Halo, ".$row["name"]."
@@ -102,9 +104,6 @@
 
         <?php
         // LOGIN
-        if(isset($_GET['idtamu'])){
-            $idtamu = $_GET['idtamu'];
-        }
         if(isset($_POST["submit_login"])){
             $usernameemail = $_POST["usernameemail"];
             $password = md5($_POST["password"]);
@@ -114,7 +113,7 @@
                 if($password == md5($row['password'])){
                     $_SESSION["login"] = true;
                     $_SESSION["id"] = $row["id"];
-                    header("Location: bukutamu_edit.php?idtamu=".$idtamu."");
+                    header("Location: pengguna.php");
                     }
                 else{
                     echo
@@ -131,7 +130,7 @@
             $_SESSION = [];
             session_unset();
             session_destroy();
-            header("Location: bukutamu_edit.php?idtamu=".$idtamu."");
+            header("Location: pengguna.php");
         }
         // REGISTER
         if(isset($_POST["submit_register"])){
@@ -158,24 +157,30 @@
                 }
             }
         }
-        // UPDATE BUKU TAMU
-        if(isset($_POST['submit'])){
-            $idtamu = $_POST['idtamu'];
-            $nama = $_POST['nama'];
-            $email = $_POST['email'];
-            $pesan = $_POST['pesan'];
-            
-            $sql = "update tamu set nama='$nama',email='$email',pesan='$pesan'  where idtamu='$idtamu';";
-            $hasil = mysqli_query($conn, $sql);
-            
-            if ($hasil){
-                header("location:bukutamu.php");
-            }
-            else{
-                echo "Update data gagal...";
-            }
-        }
         ?>
+        <!-- Seach -->
+        <div class="modal fade" tabindex="-1" id="modalSearch">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Cari</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="get">
+                            <div class="mb-3">
+                                <label for="cari" class="form-label">Siapa nama pengguna yang ingin anda cari?</label>
+                                <input type="text" name="cari" class="form-control" id="cari" placeholder="Masukkan nama pengguna yang ingin dicari" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-warning">Cari</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         <!-- Login -->
         <div class="modal fade" tabindex="-1" id="modalLogin">
@@ -275,94 +280,75 @@
         </div>
 
         <!-- Content -->
-        <div class="container mb-5 bukutamu" id="animate">
-        <div class="row p-4">
+        <div class="container bukutamu" id="animate">
+            <div class="row">
                 <div class="text-center">
-                    <h1 class="text-dark fw-bold mb-4"><span class="fa fa-book me-1"></span>Buku Tamu</h1>
-                    <hr />
+                    <h1 class="text-dark fw-bold mt-4"><span class="fa fa-book me-1"></span>Daftar Pengguna</h1>
+                    <hr>
                 </div>
             </div>
-            <?php
-                if(!empty($_SESSION["id"]) && $row["level"] == 0){
-                    if(isset($_GET['idtamu'])) {
-                        $idtamu = $_GET['idtamu'];
-                        $sql = "select * from tamu where idtamu='$idtamu'";
-                        $hasil = mysqli_query($conn, $sql);
-                        while ($rec = mysqli_fetch_assoc($hasil)) {
-                            $nama = $rec['nama'];
-                            $email = $rec['email'];
-                            $pesan = $rec['pesan'];
-                        }
-                        echo "
-                        <div class='row'>
-                            <div class='col-md 5 d-flex justify-content-center'>
-                                <img src='img/logo/rakarts.png' class='oreo' alt='Contact Us' height='300px' width='300px' />
-                            </div>
-                            <div class='col-md-6'>
-                                <form action='' method='post'>
-                                    <div class='mb-3'>
-                                        <label for='exampleForm' class='form-label'>
-                                            Nama Panjang
-                                        </label>
-                                        <input type='text' name='nama' class='form-control' id='exampleForm' value='".$nama."' />
-                                    </div>
-                                    <div class='mb-3'>
-                                        <label for='exampleFormControlInput1' class='form-label'>
-                                            Alamat Email
-                                        </label>
-                                        <input type='email' name='email' class='form-control' id='exampleFormControlInput1' value='".$email."' />
-                                    </div>
-                                    <div class='mb-3'>
-                                        <label for='exampleFormControlTextarea1' class='form-label'>
-                                            Pesan
-                                        </label>
-                                        <textarea class='form-control' name='pesan' id='exampleFormControlTextarea1' rows='5'>".$pesan."</textarea>
-                                    </div>
-                                    <input type='hidden' name='idtamu' value='".$idtamu."'>
-                                    <button type='submit' name='submit' class='btn btn-outline-dark'>
-                                        Update Pesan
-                                    </button>
-                                    <a href='bukutamu.php' class='btn btn-outline-dark'>Back</a>
-                                </form>
-                            </div>
-                        </div>
-                        ";
-                    } else {
-                        echo "
-                        <div class='alert alert-danger' role='alert'>
-                            <center>
-                                <b>Anda tidak bisa mengakses halaman ini secara langsung</b><br>
-                            </center>
-                        </div>
-                        ";
-                    }
-                } else {
-                    echo "
-                    <div class='alert alert-danger' role='alert'>
-                        <center>
-                            <b>Anda tidak bisa mengakses halaman ini secara langsung</b><br>
-                        </center>
-                    </div>
-                    ";
-                }
-            ?>
         </div>
+
+        <!-- Daftar Transaksi -->
+        <div class="container mb-4" id="animate">
+        <div class="table-responsive">
+        <?php
+            if(!empty($_SESSION["id"]) AND $row["level"] == 0){
+                echo "
+                <table class='table table-bordered table-hover table-striped'>
+                    <thead>
+                        <tr>
+                            <th scope='col'>No</th>
+                            <th scope='col'>Nama</th>
+                            <th scope='col'>Username</th>
+                            <th scope='col'>Email</th>
+                            <th scope='col'>Password</th>
+                            <th scope='col'>Tanggal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                ";
+                $pesanan = query('SELECT * FROM pengguna');
+                if(isset($_GET['cari'])){
+                    $pesanan = query("SELECT * FROM pengguna WHERE name LIKE '%". $_GET['cari'] ."%'");
+                }
+                $urut = 1;
+                foreach ($pesanan as $ps):
+                echo "
+                    <tr>
+                        <th scope='row' style='text-align:center'>".$urut++."</th>
+                        <td>".$ps['name']."</td>
+                        <td>".$ps['username']."</td>
+                        <td>".$ps['email']."</td>
+                        <td>".$ps['password']."</td>
+                        <td>".date("Y-m-d h:i:s A", strtotime($ps['tgl']))."</td>
+                    </tr>
+                ";
+                endforeach;
+                echo "
+                    </tbody>
+                </table>
+                ";
+            } else {
+                echo "
+                <div class='alert alert-danger' role='alert'>
+                    <center>
+                        <b>Anda harus masuk sebagai admin terlebih dahulu untuk mengakses halaman ini</b>
+                    </center>
+                </div>
+                ";
+            }
+        ?>
+        
+        </div>
+        </div>
+        <!-- Container -->
 
         <!-- Footer -->
         <div id="footer-placeholder"></div>
         <script>
             $(function () {
                 $("#footer-placeholder").load("components/footer.html");
-            });
-        </script>
-
-        <!-- 3D Animation -->
-        <script type="text/javascript" src="js/vanilla-tilt.min.js"></script>
-        <script type="text/javascript">
-            VanillaTilt.init(document.querySelectorAll(".oreo"), {
-                max: 10,
-                speed: 400,
-                glare: true,
             });
         </script>
 
