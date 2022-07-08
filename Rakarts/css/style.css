@@ -24,6 +24,13 @@ body {
 .navbar-nav li a {
     font-size: 17px;
 }
+.dropdown-menu li a {
+    cursor: pointer;
+}
+.dropdown-item:active {
+    color: #000 !important;
+    background-color: #f0ad4e !important;
+}
 
 /* CAROUSEL */
 .carousel-control-next {
