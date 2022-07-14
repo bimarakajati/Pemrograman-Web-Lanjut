@@ -160,8 +160,8 @@
         if(isset($_SESSION['success'])){
             echo "
                 <div class='report'>
-                    Pesanan telah diterima. Terima kasih telah membeli di toko kami.<br>
-                    Lihat pesanan di <a href='transaksi.php'>Daftar Transaksi</a>.
+                    Pesanan telah diterima. Terima kasih telah membeli di toko kami.
+                    <!-- <br>Lihat pesanan di <a href='transaksi.php'>Daftar Transaksi</a>. -->
                 </div>
             ";
             unset($_SESSION['success']);
@@ -175,7 +175,10 @@
             $total = $hasil_nama["stok"] - $_POST['jumlah'];
             // cek stok
             if($total!=0 && $total<$_POST['jumlah']){
-                echo "<script> alert('stok kurang dari ".$_POST['jumlah']."'); </script>";
+                echo "
+                <script> alert('stok kurang dari ".$_POST['jumlah']."'); </script>
+                <script> location.href = 'produk.php'; </script>
+                ";
             } else {
                 // update stok
                 $sql = "update barang set stok = ".$total." where barang.id_barang = ".$_POST['id_barang']."";

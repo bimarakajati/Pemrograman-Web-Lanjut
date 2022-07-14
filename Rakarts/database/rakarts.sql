@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 05 Jul 2022 pada 04.02
--- Versi server: 10.4.21-MariaDB
--- Versi PHP: 8.0.10
+-- Host: sql212.epizy.com
+-- Waktu pembuatan: 14 Jul 2022 pada 07.38
+-- Versi server: 10.3.27-MariaDB
+-- Versi PHP: 7.2.22
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `rakarts`
+-- Database: `epiz_20700601_dbtamu`
 --
 
 -- --------------------------------------------------------
@@ -43,9 +44,9 @@ CREATE TABLE `barang` (
 
 INSERT INTO `barang` (`id_barang`, `nm_barang`, `ft_barang`, `deskripsi`, `harga`, `stok`, `tgl`) VALUES
 (1, 'Attack on Titan - Health Protocol Levi', 'levi.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000, 0, '2022-07-02 10:38:15'),
-(2, 'NEKOSHIBA - Shiba Daijoubu Inu', 'neko.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000, 24, '2022-07-02 10:38:15'),
-(3, 'HxH/Hunter X Hunter - Killua Drink', 'killua.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 145000, 13, '2022-07-02 10:38:15'),
-(4, 'Boku No Hero/BNHA - Todoroki Hero', 'todoroki.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000, 35, '2022-07-02 10:38:15'),
+(2, 'NEKOSHIBA - Shiba Daijoubu Inu', 'neko.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000, 21, '2022-07-02 10:38:15'),
+(3, 'HxH/Hunter X Hunter - Killua Drink', 'killua.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 145000, 10, '2022-07-02 10:38:15'),
+(4, 'Boku No Hero/BNHA - Todoroki Hero', 'todoroki.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000, 32, '2022-07-02 10:38:15'),
 (5, 'Kimetsu no Yaiba - Cool Giyu', 'giyu.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000, 71, '2022-07-02 10:38:15'),
 (6, 'Attack on Titan - Human are Virus', 'titan.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000, 58, '2022-07-02 10:38:15'),
 (7, 'Kimetsu no Yaiba - Rengoku Tasty', 'rengoku.jpg', 'Kaos, Baju, Shirt, Anime, Hobby, Jepang', 140000, 69, '2022-07-02 10:38:15'),
@@ -78,7 +79,8 @@ INSERT INTO `pengguna` (`id`, `name`, `username`, `email`, `password`, `level`, 
 (4, 'Bima', 'bimarakajati', 'bimandugal@gmail.com', 'bima', 2, '2022-07-02 12:58:09'),
 (5, 'Atha', 'athaard', 'siangmalamygy@gmail.com', '123', 2, '2022-07-02 12:58:09'),
 (6, 'Tasya', 'Tacoyy', 'tasyakh99@gmail.com', 'ltmltmltm', 2, '2022-07-02 12:58:09'),
-(7, 'Audwina', 'audwina', 'morikhaglp@gmail.com', 'akucantik', 2, '2022-07-02 12:58:09');
+(7, 'Audwina', 'audwina', 'morikhaglp@gmail.com', 'akucantik', 2, '2022-07-02 12:58:09'),
+(8, 'Arvie Yonismara', 'arvi', 'arviyonismara@gmail.com', '12345', 2, '2022-07-12 20:29:29');
 
 -- --------------------------------------------------------
 
@@ -189,7 +191,7 @@ ALTER TABLE `barang`
 -- AUTO_INCREMENT untuk tabel `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `pesanan`
